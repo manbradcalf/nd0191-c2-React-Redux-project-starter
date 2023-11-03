@@ -12,14 +12,11 @@ const App = ({ dispatch, questions, employees }) => {
   useEffect(() => {
     dispatch(handleInitialData());
   }, []);
+  console.log("employees", employees);
+  console.log("questions", questions);
 
   return (
     <div className="app">
-      <h1>Welcome to Employee Questions!</h1>
-      <h2>Questions</h2>
-      <p>{questions[0].id}</p>
-      <h2>Employees</h2>
-      <p>{employees[0].id}</p>
       <BrowserRouter>
         <Routes>
           <Route path="/*" element={<Home />} />
@@ -27,12 +24,21 @@ const App = ({ dispatch, questions, employees }) => {
           <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
       </BrowserRouter>
+
+      <h1>App component!</h1>
+      <i>why does this get store updates?</i>
+      <h2>Question of the day</h2>
+      <p>{Object.values(questions)?.[0].optionOne.text}</p>
+      <b>OR</b>
+      <p>{Object.values(questions)?.[0].optionTwo.text}</p>
+      <h2>Asked by</h2>
+      <p>{Object.values(questions)?.[0].author}</p>
     </div>
   );
 };
 const mapStateToProps = ({ employees, questions }) => ({
-  questions: Object.values(questions),
-  employees: Object.values(employees),
+  employees,
+  questions,
 });
 
 export default connect(mapStateToProps)(App);
