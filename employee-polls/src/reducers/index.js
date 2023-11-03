@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import employees from "./employees";
-import polls from "./polls";
+import questions from "./questions";
 import authedUser from "./authedUser";
 
 export default combineReducers({
   authedUser: authedUser,
-  polls: polls,
+  questions: questions,
   employees: employees,
 });
