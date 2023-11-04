@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
-export const Questions = ({ store, questions, employees }) => {
+const Questions = ({ questions, employees }) => {
   console.log("questions in questions", questions);
   return (
     <div className="bordered">
       <p>Questions</p>
       <ul className="dashboard-list">
-        {store.questions?.map((q) => {
-          return <li>{q}</li>;
+        {questions?.map((q) => {
+          return <li>{q.optionOne.text} <b>OR</b> {q.optionTwo.text}</li>;
         })}
       </ul>
     </div>

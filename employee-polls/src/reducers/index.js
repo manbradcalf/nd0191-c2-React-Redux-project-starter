@@ -3,8 +3,9 @@ import employees from "./employees";
 import questions from "./questions";
 import authedUser from "./authedUser";
 
-export default combineReducers({
+const reducer = combineReducers({
   authedUser: authedUser,
   questions: questions,
   employees: employees,
 });
+export default reducer
