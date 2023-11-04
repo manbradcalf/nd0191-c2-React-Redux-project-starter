@@ -29,9 +29,9 @@ const App = ({ dispatch, employees, questions }) => {
         <h1>App component!</h1>
         <i>why does this get store updates?</i>
         <h2>Question of the day</h2>
-        <p>{questions[0].optionOne.text}</p>
+        <p>{questions[0] && questions[0].optionOne.text}</p>
         <b>OR</b>
-        <p>{questions[0].optionTwo.text}</p>
+        <p>{questions[0] && questions[0].optionTwo.text}</p>
       </div>
     );
   } else {
