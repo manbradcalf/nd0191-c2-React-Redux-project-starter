@@ -1,17 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const Home = ({ questionsProp, employeesProp, loadingProp }) => {
   if (!loadingProp) {
     return (
-      <div className="bordered">
-        <h1>Home component!</h1>
-        <h2>Question of the day</h2>
-        <p>{questionsProp[0].optionOne.text}</p>
-        <b>OR</b>
-        <p>{questionsProp[0].optionTwo.text}</p>
-        <h2>Asked by</h2>
-        <p>{questionsProp[0].author}</p>
+      <div>
+        <h1>Home component</h1>
+
+        <div className="bordered">
+          <h2>Question of the day</h2>
+          <p>{questionsProp[0].optionOne.text}</p>
+          <b>OR</b>
+          <p>{questionsProp[0].optionTwo.text}</p>
+          <h2>Asked by</h2>
+          <p>{questionsProp[0].author}</p>
+        </div>
       </div>
     );
   } else {

@@ -1,16 +1,22 @@
-import React from "react";
-import { connect } from "react-redux";
-
+import React from 'react';
+import { connect } from 'react-redux';
+import { Question } from "./QuestionDetail"
 const Questions = ({ questions, employees }) => {
-  console.log("questions in questions", questions);
   return (
-    <div className="bordered">
-      <p>Questions</p>
-      <ul className="dashboard-list">
-        {questions?.map((q) => {
-          return <li>{q.optionOne.text} <b>OR</b> {q.optionTwo.text}</li>;
-        })}
-      </ul>
+    <div>
+      <h1>Questions Component</h1>
+      <div className="bordered">
+        <h2>Questions</h2>
+        <ul className="dashboard-list">
+          {questions?.map((q) => {
+            return (
+              <li>
+                <Question question={q}/>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

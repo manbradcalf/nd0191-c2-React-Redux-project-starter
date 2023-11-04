@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 import { handleInitialData } from '../actions/shared';
 import { connect } from 'react-redux';
 import Home from './Home';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import  Questions from './Questions';
-import  Leaderboard  from './Leaderboard';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import Questions from './Questions';
+import Leaderboard from './Leaderboard';
 
 const App = ({ dispatch, employees, questions }) => {
   useEffect(() => {
@@ -18,6 +18,16 @@ const App = ({ dispatch, employees, questions }) => {
   return (
     <div className="app">
       <BrowserRouter>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/questions">Questions</Link>
+            </li>
+          </ul>
+        </nav>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/questions" element={<Questions />} />
