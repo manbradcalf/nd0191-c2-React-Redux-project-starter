@@ -8,34 +8,38 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Questions } from "./Questions";
 import { Leaderboard } from "./Leaderboard";
 
-const App = ({ dispatch, questions, employees }) => {
+const App = ({ dispatch, questions, employees, loading }) => {
   useEffect(() => {
     dispatch(handleInitialData());
   }, []);
+  console.log("loading", loading);
   console.log("employees", employees);
   console.log("questions", questions);
 
-  return (
-    <div className="app">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route path="/questions" element={<Questions />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-        </Routes>
-      </BrowserRouter>
+  if (questions !== null) {
+    return (
+      <div className="app">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/*" element={<Home />} />
+            <Route path="/questions" element={<Questions />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+          </Routes>
+        </BrowserRouter>
 
-      <h1>App component!</h1>
-      <i>why does this get store updates?</i>
-      <h2>Question of the day</h2>
-      <p>{Object.values(questions)?.[0].optionOne.text}</p>
-      <b>OR</b>
-      <p>{Object.values(questions)?.[0].optionTwo.text}</p>
-      <h2>Asked by</h2>
-      <p>{Object.values(questions)?.[0].author}</p>
-    </div>
-  );
+        <h1>App component!</h1>
+        <i>why does this get store updates?</i>
+        <h2>Question of the day</h2>
+        <p>{Object.values(questions)[0].optionOne.text}</p>
+        <b>OR</b>
+        <p>{Object.values(questions)[0].optionTwo.text}</p>
+      </div>
+    );
+  } else {
+    return <h1>Loading!</h1>;
+  }
 };
+
 const mapStateToProps = ({ employees, questions }) => ({
   employees,
   questions,
