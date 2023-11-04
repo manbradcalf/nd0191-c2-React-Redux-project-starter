@@ -8,11 +8,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Questions } from "./Questions";
 import { Leaderboard } from "./Leaderboard";
 
-const App = ({ dispatch, questions, employees, loading }) => {
+const App = ({ dispatch, employees, questions }) => {
   useEffect(() => {
     dispatch(handleInitialData());
   }, []);
-  console.log("loading", loading);
   console.log("employees", employees);
   console.log("questions", questions);
 
@@ -30,9 +29,9 @@ const App = ({ dispatch, questions, employees, loading }) => {
         <h1>App component!</h1>
         <i>why does this get store updates?</i>
         <h2>Question of the day</h2>
-        <p>{Object.values(questions)[0].optionOne.text}</p>
+        <p>{questions[0].optionOne.text}</p>
         <b>OR</b>
-        <p>{Object.values(questions)[0].optionTwo.text}</p>
+        <p>{questions[0].optionTwo.text}</p>
       </div>
     );
   } else {
@@ -41,8 +40,8 @@ const App = ({ dispatch, questions, employees, loading }) => {
 };
 
 const mapStateToProps = ({ employees, questions }) => ({
-  employees,
-  questions,
+  employees: Object.values(employees),
+  questions: Object.values(questions),
 });
 
 export default connect(mapStateToProps)(App);
