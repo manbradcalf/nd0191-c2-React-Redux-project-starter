@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const NewQuestion = () => {
+export const AddNewQuestion = () => {
   return (
     <div className="bordered">
       <h1>Ask a Question!</h1>
@@ -8,7 +8,7 @@ export const NewQuestion = () => {
       <textarea />
       <p>or</p>
       <textarea />
-      <br/>
+      <br />
       <button>Submit</button>
     </div>
   );
