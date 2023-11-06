@@ -1,7 +1,15 @@
-import React from "react";
+import React from 'react';
 
 export const NewQuestion = () => {
-  <div className="bordered">
-    <p>Leaderboard</p>
-  </div>;
+  return (
+    <div className="bordered">
+      <h1>Ask a Question!</h1>
+      <p>Would you rather?</p>
+      <textarea />
+      <p>or</p>
+      <textarea />
+      <br/>
+      <button>Submit</button>
+    </div>
+  );
 };

@@ -7,6 +7,7 @@ import Home from './Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Questions from './Questions';
 import Leaderboard from './Leaderboard';
+import { NewQuestion } from './NewQuestion';
 import { NavBar } from './NavBar';
 
 const App = ({ dispatch, employees, questions }) => {
@@ -22,6 +23,7 @@ const App = ({ dispatch, employees, questions }) => {
           <Route path="/" element={<Home />} />
           <Route path="/questions" element={<Questions />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/new" element={<NewQuestion />} />
         </Routes>
       </BrowserRouter>
     </div>
