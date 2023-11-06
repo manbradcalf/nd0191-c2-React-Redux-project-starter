@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Leaderboard = ({ questions, users, authedUser }) => {
-  console.log("leaderboard users",users)
+const Leaderboard = ({ questions, employees, authedUser }) => {
+  console.log('leaderboard employees', employees);
   return (
     <div className="bordered">
       <p>Leaderboard</p>
       <ul>
-        {users &&
-          users.map((user) => {
+        {employees &&
+          employees.map((employee) => {
             return (
               <li>
-                {user.name} asked {user.answers.size} questions
+                {employee.name} asked {Object.values(employee.answers).length} questions
               </li>
             );
           })}
@@ -20,9 +20,9 @@ const Leaderboard = ({ questions, users, authedUser }) => {
   );
 };
 
-const mapStateToProps = ({ questions, users, authedUser }) => ({
-  users: users?.sort(
-    (a, b) => Object.keys(b.answers).length - Object.keys(a.answers).length
+const mapStateToProps = ({ questions, employees, authedUser }) => ({
+  employees: Object.values(employees).sort(
+    (a, b) => Object.values(b.answers).length - Object.values(a.answers).length
   ),
 });
 

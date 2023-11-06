@@ -10,6 +10,8 @@ export function handleInitialData() {
   return (dispatch) => {
     return getInitialData()
       .then(({ employees, questions }) => {
+        console.log("dispatching employees...", employees)
+        console.log("dispatching questions...", questions)
         dispatch(receiveQuestions(questions));
         dispatch(receiveEmployees(employees));
         dispatch(setAuthedUser(AUTHED_ID));
