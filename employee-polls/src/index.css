@@ -16,3 +16,14 @@ code {
   padding: 1vw;
   margin: 1vw;
 }
+
+.navbar {
+  display: inline;
+  padding: 1vw;
+}
+
+.navbar li {
+  float: left;
+  margin-inline: 1vw;
+  list-style: none;
+}
