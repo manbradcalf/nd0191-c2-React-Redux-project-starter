@@ -9,6 +9,7 @@ import Questions from './Questions';
 import Leaderboard from './Leaderboard';
 import { AddNewQuestion } from './AddNewQuestion';
 import { NavBar } from './NavBar';
+import QuestionDetail from './QuestionDetailPage';
 
 const App = ({ dispatch, employees, questions }) => {
   useEffect(() => {
@@ -24,6 +25,7 @@ const App = ({ dispatch, employees, questions }) => {
           <Route path="/questions" element={<Questions />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/add" element={<AddNewQuestion />} />
+          <Route path="/question/:id" element={<QuestionDetail />} />
         </Routes>
       </BrowserRouter>
     </div>

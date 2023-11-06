@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Question } from "./QuestionDetail"
+import { Question } from './Question';
 const Questions = ({ questions, employees }) => {
   return (
     <div>
       <div className="bordered">
-      <h1>Questions Component</h1>
+        <h1>Questions Component</h1>
         <h2>Questions</h2>
         <ul className="dashboard-list">
-          {questions?.map((q) => {
+          {questions?.map((question) => {
             return (
-              <li key={q.id}>
-                <Question question={q}/>
+              <li key={question.id}>
+                <Question question={question} />
               </li>
             );
           })}
