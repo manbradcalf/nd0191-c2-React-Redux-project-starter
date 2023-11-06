@@ -1,11 +1,12 @@
-import { combineReducers } from "redux";
-import employees from "./employees";
-import questions from "./questions";
-import authedUser from "./authedUser";
+import { combineReducers } from 'redux';
+import employeesReducer from './employeesReducer';
+import questionsReducer from './questionsReducer';
+import authedUserReducer from './authedUserReducer';
 
 const reducer = combineReducers({
-  authedUser: authedUser,
-  questions: questions,
-  employees: employees,
+  authedUser: authedUserReducer,
+  questions: questionsReducer,
+  employees: employeesReducer,
 });
-export default reducer
+
+export default reducer;

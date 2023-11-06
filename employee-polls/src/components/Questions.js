@@ -4,13 +4,13 @@ import { Question } from "./QuestionDetail"
 const Questions = ({ questions, employees }) => {
   return (
     <div>
-      <h1>Questions Component</h1>
       <div className="bordered">
+      <h1>Questions Component</h1>
         <h2>Questions</h2>
         <ul className="dashboard-list">
           {questions?.map((q) => {
             return (
-              <li>
+              <li key={q.id}>
                 <Question question={q}/>
               </li>
             );

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 const Home = ({ questionsProp, employeesProp, loadingProp }) => {
   if (!loadingProp) {
     return (
-      <div>
+      <div className='bordered'>
         <h1>Home component</h1>
 
         <div className="bordered">
