@@ -9,7 +9,7 @@ import AddNewQuestion from "./AddNewQuestion";
 import { NavBar } from "./NavBar";
 import QuestionDetail from "./QuestionDetailPage";
 
-const App = ({ dispatch, employees, questions }) => {
+const App = ({ dispatch, employees, questions, id }) => {
   useEffect(
     () => {
       dispatch(handleInitialData());

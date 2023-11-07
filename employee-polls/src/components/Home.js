@@ -4,18 +4,30 @@
 // The name of the logged in user is visible on the page.
 
 // complete:
-// The user can navigate to the leaderboard. 
+// The user can navigate to the leaderboard.
 // The user can navigate to the form that allows the user to create a new poll.
 
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
+import Login from "./Login";
 
-const Home = ({ questionsProp, employeesProp, loadingProp }) => {
-  if (!loadingProp) {
+const Home = ({
+  dispatch,
+  questionsProp,
+  employeesProp,
+  authedUser,
+  loadingProp,
+}) => {
+  // loading state
+  if (loadingProp) {
+    return <h1>Loading!</h1>;
+  } else if (!authedUser?.authedUser?.id) {
+    return <Login dispatch={dispatch} />;
+  } else {
     return (
       <div className="bordered">
         <h1>Home component</h1>
-
+        <p>authed user is {authedUser.authedUser.id}</p>
         <div className="bordered">
           <h2>Question of the day</h2>
           <p>{questionsProp[0].optionOne.text}</p>
@@ -26,18 +38,17 @@ const Home = ({ questionsProp, employeesProp, loadingProp }) => {
         </div>
       </div>
     );
-  } else {
-    return <h1>Loading!</h1>;
   }
 };
 
-const mapStateToProps = ({ questions, employees }) => {
+const mapStateToProps = ({ questions, employees, authedUser }) => {
   // map the data to a list. the ids are actally in the values already
   const questionsList = questions ? Object.values(questions) : [];
   const employeesList = employees ? Object.values(employees) : [];
   return {
     questionsProp: questionsList,
     employeesProp: employeesList,
+    authedUser: authedUser,
     loadingProp: questionsList.length === 0 && employeesList.length === 0,
   };
 };
