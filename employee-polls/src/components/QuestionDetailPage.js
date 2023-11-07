@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Question } from './Question';
+import { useParams } from "react-router-dom";
+import { connect } from "react-redux";
+import Question from "./Question";
 
 const QuestionDetail = ({ questions }) => {
   const { id } = useParams();

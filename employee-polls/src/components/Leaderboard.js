@@ -7,9 +7,10 @@
 // Users are ordered in descending order based on the sum of the number of questions they’ve answered and the number of questions they’ve asked.
 import React from "react";
 import { connect } from "react-redux";
-import { checkAuth } from "../util/api";
+import { authedComponent } from "../util/helpers";
 
 const Leaderboard = ({ questions, employees, authedUser }) => {
+
   const component = (
     <div className="bordered">
       <p>Leaderboard</p>
@@ -26,7 +27,8 @@ const Leaderboard = ({ questions, employees, authedUser }) => {
       </ul>
     </div>
   );
-  return checkAuth(authedUser, component, "Leaderboard");
+
+  return authedComponent(authedUser, component, "Leaderboard");
 };
 
 const mapStateToProps = ({ questions, employees, authedUser }) => ({

@@ -9,8 +9,8 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import Login from "./Login";
-
+import { authedComponent } from "../util/helpers";
+import Questions from "./Questions";
 const Home = ({
   dispatch,
   questionsProp,
@@ -18,26 +18,20 @@ const Home = ({
   authedUser,
   loadingProp,
 }) => {
+  const component = (
+    <div className="bordered">
+      <h1>Home</h1>
+      <div className="bordered">
+        <h2>Replace me with the dashboard of questions to be answered</h2>
+        <Questions />
+      </div>
+    </div>
+  );
   // loading state
   if (loadingProp) {
     return <h1>Loading!</h1>;
-  } else if (!authedUser) {
-    return <Login />;
   } else {
-    return (
-      <div className="bordered">
-        <h1>Home component</h1>
-        <p>authed user is {authedUser}</p>
-        <div className="bordered">
-          <h2>Question of the day</h2>
-          <p>{questionsProp[0].optionOne.text}</p>
-          <b>OR</b>
-          <p>{questionsProp[0].optionTwo.text}</p>
-          <h2>Asked by</h2>
-          <p>{questionsProp[0].author}</p>
-        </div>
-      </div>
-    );
+    return authedComponent(authedUser, component, "Home");
   }
 };
 

@@ -7,6 +7,7 @@ import { Button, TextField } from "@mui/material";
 import { connect } from "react-redux";
 import { handleAddNewQuestion } from "../actions/questions";
 import { useState } from "react";
+import { authedComponent } from "../util/helpers";
 
 const AddNewQuestion = ({ store, dispatch, authedUser }) => {
   const [optionOne, setOptionOne] = useState("");
@@ -27,7 +28,7 @@ const AddNewQuestion = ({ store, dispatch, authedUser }) => {
     dispatch(handleAddNewQuestion(optionOne, optionTwo));
   };
 
-  return (
+  const component = (
     <div className="bordered">
       <h1>Ask a Question!</h1>
       <p>Would you rather?</p>
@@ -44,6 +45,8 @@ const AddNewQuestion = ({ store, dispatch, authedUser }) => {
       )}
     </div>
   );
+
+  return authedComponent(authedUser, component, "Ask a Question");
 };
 
 const mapStateToProps = ({ authedUser }) => ({ authedUser });

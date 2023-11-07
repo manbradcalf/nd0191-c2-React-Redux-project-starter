@@ -31,11 +31,6 @@ const Login = ({ dispatch, employees, authedUser }) => {
     );
   };
 
-  // const handleLogIn = (event) => {
-  //   console.log(`handle login called for ${selectedUser}`);
-  //   dispatch(handleLogIn(selectedUser));
-  // };
-
   return (
     <div className="bordered">
       <h1>Login</h1>

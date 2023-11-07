@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Question } from "./Question";
-import { checkAuth } from "../util/api";
+import Question from "./Question";
+import { authedComponent } from "../util/helpers";
 
 const Questions = ({ questions, employees, authedUser }) => {
   const component = (
@@ -22,7 +22,7 @@ const Questions = ({ questions, employees, authedUser }) => {
     </div>
   );
 
-  return checkAuth(authedUser, component, "Questions");
+  return authedComponent(authedUser, component, "Questions");
 };
 
 // called when the store is updated
