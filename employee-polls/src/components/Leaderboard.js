@@ -18,8 +18,7 @@ const Leaderboard = ({ questions, employees, authedUser }) => {
           employees.map((employee) => {
             return (
               <li>
-                {employee.name} asked {Object.values(employee.answers).length}{' '}
-                questions
+                {employee.name} asked {Object.values(employee.questions).length} questions
               </li>
             );
           })}
@@ -30,7 +29,8 @@ const Leaderboard = ({ questions, employees, authedUser }) => {
 
 const mapStateToProps = ({ questions, employees, authedUser }) => ({
   employees: Object.values(employees).sort(
-    (a, b) => Object.values(b.answers).length - Object.values(a.answers).length
+    (a, b) =>
+      Object.values(b.questions).length - Object.values(a.questions).length
   ),
 });
 
