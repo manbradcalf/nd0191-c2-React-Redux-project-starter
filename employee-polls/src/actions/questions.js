@@ -1,6 +1,9 @@
-import { _saveQuestion } from '../util/_DATA';
+import { saveQuestion } from '../util/api';
+import { addNewQuestionToUser } from './employees';
+
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION';
+export const ADD_NEW_QUESTION_TO_USER = 'ADD_NEW_QUESTION_TO_USER';
 
 export function receiveQuestions(questions) {
   return {
@@ -15,9 +18,9 @@ export function addNewQuestion(question) {
     question,
   };
 }
+
 export function handleAddNewQuestion(optionOne, optionTwo) {
   return (dispatch, getState) => {
-    console.log('handleAddNewQuestion pt 2');
     const { authedUser } = getState();
 
     const question = {
@@ -26,8 +29,11 @@ export function handleAddNewQuestion(optionOne, optionTwo) {
       author: authedUser,
     };
 
-    return _saveQuestion(question)
-      .then((question) => dispatch(addNewQuestion(question)))
+    return saveQuestion(question, authedUser)
+      .then((savedQuestion) => dispatch(addNewQuestion(savedQuestion)))
+      .then((savedQuestion) =>
+        dispatch(addNewQuestionToUser(savedQuestion.question.id, authedUser))
+      )
       .catch((e) => console.log(e));
   };
 }
