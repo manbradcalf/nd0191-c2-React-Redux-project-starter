@@ -28,7 +28,13 @@ const Login = ({ dispatch, employees, authedUser }) => {
 
   const handleChange = (event) => {
     event.preventDefault();
-    dispatch(setAuthedUser(event.target.value));
+    dispatch(
+      setAuthedUser(
+        // get the id by the name they selected
+        // todo: implement real authentication
+        employees.filter((x) => x.name === event.target.value)?.[0].id
+      )
+    );
   };
 
   // const handleLogIn = (event) => {

@@ -21,13 +21,13 @@ const Home = ({
   // loading state
   if (loadingProp) {
     return <h1>Loading!</h1>;
-  } else if (!authedUser?.authedUser?.id) {
+  } else if (authedUser === "") {
     return <Login dispatch={dispatch} />;
   } else {
     return (
       <div className="bordered">
         <h1>Home component</h1>
-        <p>authed user is {authedUser.authedUser.id}</p>
+        <p>authed user is {authedUser}</p>
         <div className="bordered">
           <h2>Question of the day</h2>
           <p>{questionsProp[0].optionOne.text}</p>
@@ -48,7 +48,7 @@ const mapStateToProps = ({ questions, employees, authedUser }) => {
   return {
     questionsProp: questionsList,
     employeesProp: employeesList,
-    authedUser: authedUser,
+    authedUser: authedUser ? authedUser : "",
     loadingProp: questionsList.length === 0 && employeesList.length === 0,
   };
 };

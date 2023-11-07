@@ -164,6 +164,7 @@ function formatQuestion({ optionOneText, optionTwoText, author }) {
 }
 
 export function _saveQuestion(question, authedUserId) {
+  console.log("authedUserId in db method is ", authedUserId )
   return new Promise((resolve, reject) => {
     if (
       !question.optionOneText ||
