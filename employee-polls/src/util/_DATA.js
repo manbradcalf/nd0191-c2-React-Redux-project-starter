@@ -174,6 +174,7 @@ export function _saveQuestion(question) {
     }
 
     const formattedQuestion = formatQuestion(question);
+
     setTimeout(() => {
       questions = {
         ...questions,

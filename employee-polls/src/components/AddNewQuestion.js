@@ -2,19 +2,44 @@
 // Upon submitting the form, a new poll is created and the user is taken to the home page.
 // The new polling question appears in the correct category on the home page.
 // The form is available at/add.
-
 import React from 'react';
+import { Button, TextField } from '@mui/material';
+import { connect } from 'react-redux';
+import { handleAddNewQuestion } from '../actions/questions';
+import { useState } from 'react';
 
-export const AddNewQuestion = () => {
+const AddNewQuestion = ({ store, dispatch }) => {
+  const [optionOne, setOptionOne] = useState('');
+  const [optionTwo, setOptionTwo] = useState('');
+
+  const handleOptionOne = (event) => {
+    event.preventDefault();
+    setOptionOne(event.target.value);
+  };
+
+  const handleOptionTwo = (event) => {
+    event.preventDefault();
+    setOptionTwo(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(handleAddNewQuestion(optionOne, optionTwo));
+  };
+
   return (
     <div className="bordered">
       <h1>Ask a Question!</h1>
       <p>Would you rather?</p>
-      <textarea />
+      <TextField variant="standard" onChange={handleOptionOne} />
       <p>or</p>
-      <textarea />
+      <TextField variant="standard" onChange={handleOptionTwo} />
       <br />
-      <button>Submit</button>
+      <Button variant="outlined" onClick={handleSubmit}>
+        Submit
+      </Button>
     </div>
   );
 };
+
+export default connect()(AddNewQuestion);

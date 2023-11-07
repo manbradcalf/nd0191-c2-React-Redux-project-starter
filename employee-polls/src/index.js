@@ -7,6 +7,11 @@ import { Provider } from 'react-redux';
 import reducer from './reducers';
 import middleware from './middleware';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 const store = createStore(reducer, middleware);
 ReactDOM.render(
   // give Provider the store so they can stick it on context

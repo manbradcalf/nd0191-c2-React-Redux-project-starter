@@ -5,7 +5,7 @@ export const Question = ({ question }) => {
         <b>{question.author}</b> asked
       </p>
       <p>
-        {question.optionOne.text} <b>OR</b> {question.optionTwo.text}
+        {question.optionOne?.text} <b>OR</b> {question.optionTwo?.text}
       </p>
     </div>
   );
