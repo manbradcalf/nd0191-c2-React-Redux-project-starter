@@ -12,19 +12,13 @@
 // Whenever the user types something in the address bar, the user is asked to log in before the requested page is shown.
 
 import React from "react";
-import {
-  Select,
-  Button,
-  InputLabel,
-  MenuItem,
-  FormControl,
-} from "@mui/material";
+import { Select, InputLabel, MenuItem, FormControl } from "@mui/material";
 import { connect } from "react-redux";
 import { useState } from "react";
 import { setAuthedUser } from "../actions/authedUser";
 
 const Login = ({ dispatch, employees, authedUser }) => {
-  const [selectedUser, setSelectedUser] = useState("");
+  const [selectedUser] = useState("");
 
   const handleChange = (event) => {
     event.preventDefault();

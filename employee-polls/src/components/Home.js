@@ -21,8 +21,8 @@ const Home = ({
   // loading state
   if (loadingProp) {
     return <h1>Loading!</h1>;
-  } else if (authedUser === "") {
-    return <Login dispatch={dispatch} />;
+  } else if (!authedUser) {
+    return <Login />;
   } else {
     return (
       <div className="bordered">

@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Questions from "./Questions";
 import Leaderboard from "./Leaderboard";
 import AddNewQuestion from "./AddNewQuestion";
-import { NavBar } from "./NavBar";
+import NavBar from "./NavBar";
 import QuestionDetail from "./QuestionDetailPage";
 
 const App = ({ dispatch, employees, questions, id }) => {

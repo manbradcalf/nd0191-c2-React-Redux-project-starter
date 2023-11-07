@@ -2,15 +2,15 @@
 // Upon submitting the form, a new poll is created and the user is taken to the home page.
 // The new polling question appears in the correct category on the home page.
 // The form is available at/add.
-import React from 'react';
-import { Button, TextField } from '@mui/material';
-import { connect } from 'react-redux';
-import { handleAddNewQuestion } from '../actions/questions';
-import { useState } from 'react';
+import React from "react";
+import { Button, TextField } from "@mui/material";
+import { connect } from "react-redux";
+import { handleAddNewQuestion } from "../actions/questions";
+import { useState } from "react";
 
-const AddNewQuestion = ({ store, dispatch }) => {
-  const [optionOne, setOptionOne] = useState('');
-  const [optionTwo, setOptionTwo] = useState('');
+const AddNewQuestion = ({ store, dispatch, authedUser }) => {
+  const [optionOne, setOptionOne] = useState("");
+  const [optionTwo, setOptionTwo] = useState("");
 
   const handleOptionOne = (event) => {
     event.preventDefault();
@@ -35,11 +35,17 @@ const AddNewQuestion = ({ store, dispatch }) => {
       <p>or</p>
       <TextField variant="standard" onChange={handleOptionTwo} />
       <br />
-      <Button variant="outlined" onClick={handleSubmit}>
-        Submit
-      </Button>
+      {authedUser ? (
+        <Button variant="outlined" onClick={handleSubmit}>
+          Submit
+        </Button>
+      ) : (
+        <b> Please log in to submit a question</b>
+      )}
     </div>
   );
 };
 
-export default connect()(AddNewQuestion);
+const mapStateToProps = ({ authedUser }) => ({ authedUser });
+
+export default connect(mapStateToProps)(AddNewQuestion);

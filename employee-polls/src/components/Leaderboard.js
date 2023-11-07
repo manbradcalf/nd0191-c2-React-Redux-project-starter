@@ -5,12 +5,12 @@
 // the number of questions the user asked; and
 // the number of questions the user answered.
 // Users are ordered in descending order based on the sum of the number of questions they’ve answered and the number of questions they’ve asked.
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
+import { checkAuth } from "../util/api";
 
 const Leaderboard = ({ questions, employees, authedUser }) => {
-  console.log('leaderboard employees', employees);
-  return (
+  const component = (
     <div className="bordered">
       <p>Leaderboard</p>
       <ul>
@@ -18,13 +18,15 @@ const Leaderboard = ({ questions, employees, authedUser }) => {
           employees.map((employee) => {
             return (
               <li>
-                {employee.name} asked {Object.values(employee.questions).length} questions
+                {employee.name} asked {Object.values(employee.questions).length}{" "}
+                questions
               </li>
             );
           })}
       </ul>
     </div>
   );
+  return checkAuth(authedUser, component, "Leaderboard");
 };
 
 const mapStateToProps = ({ questions, employees, authedUser }) => ({
@@ -32,6 +34,7 @@ const mapStateToProps = ({ questions, employees, authedUser }) => ({
     (a, b) =>
       Object.values(b.questions).length - Object.values(a.questions).length
   ),
+  authedUser,
 });
 
 export default connect(mapStateToProps)(Leaderboard);

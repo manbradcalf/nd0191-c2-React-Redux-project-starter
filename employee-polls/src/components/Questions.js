@@ -1,8 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Question } from './Question';
-const Questions = ({ questions, employees }) => {
-  return (
+import React from "react";
+import { connect } from "react-redux";
+import { Question } from "./Question";
+import { checkAuth } from "../util/api";
+
+const Questions = ({ questions, employees, authedUser }) => {
+  const component = (
     <div>
       <div className="bordered">
         <h1>Questions Component</h1>
@@ -19,13 +21,16 @@ const Questions = ({ questions, employees }) => {
       </div>
     </div>
   );
+
+  return checkAuth(authedUser, component, "Questions");
 };
 
 // called when the store is updated
 // because we connected it via connect(mapStateToProps)(Dashboard)
-const mapStateToProps = ({ employees, questions }) => ({
+const mapStateToProps = ({ employees, questions, authedUser }) => ({
   questions: Object.values(questions),
   employees: Object.values(employees),
+  authedUser: authedUser,
 });
 
 export default connect(mapStateToProps)(Questions);
