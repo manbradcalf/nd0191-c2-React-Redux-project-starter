@@ -8,7 +8,6 @@
 // The user can navigate to the form that allows the user to create a new poll.
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const Home = ({ questionsProp, employeesProp, loadingProp }) => {
