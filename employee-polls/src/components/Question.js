@@ -7,6 +7,8 @@ import { Avatar } from "@mui/material";
 import { Box } from "@mui/material";
 import { handleQuestionAnswered } from "../actions/shared";
 
+// todo: theres a bug in this component
+// after voting, the avatars go away
 const Question = ({ dispatch, question, employees, authedUser }) => {
   const asker = employees?.[question?.author];
 
@@ -38,7 +40,7 @@ const Question = ({ dispatch, question, employees, authedUser }) => {
       }}
     >
       <Box sx={{ m: 2 }}>
-        <Avatar src={asker?.avatarURL} />
+        <Avatar src={employees[question.author]?.avatarURL} />
         <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
           {question?.author} asked...
         </Typography>

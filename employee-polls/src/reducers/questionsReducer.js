@@ -34,7 +34,6 @@ export default function questionsReducer(state = {}, action) {
         },
       };
 
-      break;
     default:
       return state;
   }

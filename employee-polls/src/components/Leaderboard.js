@@ -18,7 +18,7 @@ const Leaderboard = ({ questions, employees, authedUser }) => {
         {employees &&
           employees.map((employee) => {
             return (
-              <li>
+              <li key={employee.id}>
                 {employee.name} asked {Object.values(employee.questions).length}{" "}
                 questions
               </li>

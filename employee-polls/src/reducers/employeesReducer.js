@@ -5,26 +5,35 @@ import {
 } from "../actions/employees";
 
 export default function employeesReducer(state = {}, action) {
+  const { authedUser, question, employees, answer } = action;
   switch (action.type) {
     case RECEIVE_EMPLOYEES:
       return {
         ...state,
-        ...action.employees,
+        ...employees,
       };
-      break;
 
     case ADD_NEW_QUESTION_TO_USER:
       return {
         ...state,
         [action.authedUser]: {
           ...state[action.authedUser],
-          questions: state[action.authedUser].questions.concat(action.qid),
+          questions: state[authedUser].questions.concat(question.id),
         },
       };
-      break;
 
     case ADD_ANSWER_TO_USER:
-      break;
+      return {
+        ...state,
+        [action.authedUser]: {
+          ...state[authedUser],
+          answers: {
+            ...state[authedUser].answers, 
+            [action.qid]:answer
+          },
+        },
+      };
+
     default:
       return state;
   }
