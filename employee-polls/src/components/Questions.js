@@ -2,22 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 import Question from "./Question";
 import { authedComponent } from "../util/helpers";
+import { List, ListItem } from "@mui/material";
 
 const Questions = ({ questions, employees, authedUser }) => {
   const component = (
     <div>
       <div className="bordered">
-        <h1>Questions Component</h1>
         <h2>Questions</h2>
-        <ul className="dashboard-list">
+        <List className="dashboard-list">
           {questions?.map((question) => {
             return (
-              <li key={question.id}>
+              <ListItem key={question.id}>
                 <Question question={question} />
-              </li>
+              </ListItem>
             );
           })}
-        </ul>
+        </List>
       </div>
     </div>
   );

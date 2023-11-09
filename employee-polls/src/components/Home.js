@@ -22,7 +22,6 @@ const Home = ({
     <div className="bordered">
       <h1>Home</h1>
       <div className="bordered">
-        <h2>Replace me with the dashboard of questions to be answered</h2>
         <Questions />
       </div>
     </div>
