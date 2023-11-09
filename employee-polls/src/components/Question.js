@@ -3,6 +3,8 @@ import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { connect } from "react-redux";
+import { Avatar } from "@mui/material";
+import { Box } from "@mui/material";
 
 const Question = ({ question, employees }) => {
   const asker = employees?.[question?.author];
@@ -23,14 +25,18 @@ const Question = ({ question, employees }) => {
       sx={{
         backgroundColor: "#fff",
         borderRadius: 2,
-        m: 1,
-        p: 1,
-        width: 1,
         textAlign: "center",
         alignItems: "center",
+        fontWeight: "light",
       }}
     >
-      <b>{asker?.name}</b> asked
+      <Box sx={{ m: 2 }}>
+        <Avatar src={asker?.avatarURL} />
+        <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
+          {question?.author} asked...
+        </Typography>
+      </Box>
+
       <h2>Would you rather?</h2>
       <Typography sx={{ textAlign: "center", mb: 2 }}>
         {question.optionOne.text} ({optionOneVotePercentage}%)
@@ -39,7 +45,6 @@ const Question = ({ question, employees }) => {
       <Typography sx={{ textAlign: "center", mt: 2 }}>
         {question.optionTwo.text} ({optionTwoVotePercentage}%)
       </Typography>
-
       <div>
         <Button variant={"contained"} sx={{ width: 1 / 4, m: 2 }}>
           Option 1
@@ -48,7 +53,6 @@ const Question = ({ question, employees }) => {
           Option 2
         </Button>
       </div>
-
     </Card>
   );
 };

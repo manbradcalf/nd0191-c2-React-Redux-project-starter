@@ -2,22 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 import Question from "./Question";
 import { authedComponent } from "../util/helpers";
-import { List, ListItem } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 const Questions = ({ questions, employees, authedUser }) => {
   const component = (
     <div>
       <div className="bordered">
         <h2>Questions</h2>
-        <List className="dashboard-list">
+        <Grid2 container rowSpacing={2} columns={2}>
           {questions?.map((question) => {
             return (
-              <ListItem key={question.id}>
+              <Grid2 key={question.id} xs={1}>
                 <Question question={question} />
-              </ListItem>
+              </Grid2>
             );
           })}
-        </List>
+        </Grid2>
       </div>
     </div>
   );
