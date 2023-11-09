@@ -24,6 +24,7 @@ export function saveQuestionAnswer(authedUser, questionId, answer) {
   return _saveQuestionAnswer(authedUser, questionId, answer);
 }
 
+
 export const checkAuth = (authedUser, component, componentName) => {
   if (!authedUser) {
     return (

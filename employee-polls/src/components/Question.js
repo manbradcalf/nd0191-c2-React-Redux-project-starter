@@ -5,12 +5,13 @@ import Typography from "@mui/material/Typography";
 import { connect } from "react-redux";
 import { Avatar } from "@mui/material";
 import { Box } from "@mui/material";
+import { handleQuestionAnswered } from "../actions/shared";
 
-const Question = ({ question, employees }) => {
+const Question = ({ dispatch, question, employees, authedUser }) => {
   const asker = employees?.[question?.author];
 
-  const optionOneVoteCount = question?.optionOne.votes.length;
-  const optionTwoVoteCount = question?.optionTwo.votes.length;
+  const optionOneVoteCount = question.optionOne.votes.length;
+  const optionTwoVoteCount = question.optionTwo.votes.length;
   const voteCount = optionOneVoteCount + optionTwoVoteCount;
 
   const optionOneVotePercentage = Math.round(
@@ -19,6 +20,12 @@ const Question = ({ question, employees }) => {
   const optionTwoVotePercentage = Math.round(
     (optionTwoVoteCount / voteCount) * 100
   );
+
+  const voteClicked = (event) => {
+    event.preventDefault();
+    const answer = event.target.value;
+    dispatch(handleQuestionAnswered(question?.id, answer, authedUser));
+  };
 
   return (
     <Card
@@ -46,10 +53,20 @@ const Question = ({ question, employees }) => {
         {question.optionTwo.text} ({optionTwoVotePercentage}%)
       </Typography>
       <div>
-        <Button variant={"contained"} sx={{ width: 1 / 4, m: 2 }}>
+        <Button
+          value="optionOne"
+          variant={"contained"}
+          sx={{ width: 1 / 4, m: 2 }}
+          onClick={voteClicked}
+        >
           Option 1
         </Button>
-        <Button variant={"contained"} sx={{ width: 1 / 4, m: 2 }}>
+        <Button
+          value="optionTwo"
+          variant={"contained"}
+          sx={{ width: 1 / 4, m: 2 }}
+          onClick={voteClicked}
+        >
           Option 2
         </Button>
       </div>
@@ -57,8 +74,10 @@ const Question = ({ question, employees }) => {
   );
 };
 
-const mapStateToProps = ({ employees }) => ({
+const mapStateToProps = ({ employees, questions, authedUser }) => ({
   employees,
+  questions,
+  authedUser,
 });
 
 export default connect(mapStateToProps)(Question);

@@ -1,5 +1,8 @@
-import { RECEIVE_EMPLOYEES } from '../actions/employees';
-import { ADD_NEW_QUESTION_TO_USER } from '../actions/questions';
+import {
+  ADD_ANSWER_TO_USER,
+  RECEIVE_EMPLOYEES,
+  ADD_NEW_QUESTION_TO_USER,
+} from "../actions/employees";
 
 export default function employeesReducer(state = {}, action) {
   switch (action.type) {
@@ -8,6 +11,8 @@ export default function employeesReducer(state = {}, action) {
         ...state,
         ...action.employees,
       };
+      break;
+
     case ADD_NEW_QUESTION_TO_USER:
       return {
         ...state,
@@ -16,6 +21,10 @@ export default function employeesReducer(state = {}, action) {
           questions: state[action.authedUser].questions.concat(action.qid),
         },
       };
+      break;
+
+    case ADD_ANSWER_TO_USER:
+      break;
     default:
       return state;
   }
