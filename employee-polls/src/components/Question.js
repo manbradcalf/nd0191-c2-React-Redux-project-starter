@@ -9,11 +9,11 @@ import { handleQuestionAnswered } from "../actions/shared";
 
 // todo: theres a bug in this component
 // after voting, the avatars go away
-const Question = ({ dispatch, question, employees, authedUser }) => {
+const Question = ({ dispatch, question, employees, authedUser, loading }) => {
   const asker = employees?.[question?.author];
 
-  const optionOneVoteCount = question.optionOne.votes.length;
-  const optionTwoVoteCount = question.optionTwo.votes.length;
+  const optionOneVoteCount = question?.optionOne.votes.length;
+  const optionTwoVoteCount = question?.optionTwo.votes.length;
   const voteCount = optionOneVoteCount + optionTwoVoteCount;
 
   const optionOneVotePercentage = Math.round(
@@ -40,7 +40,7 @@ const Question = ({ dispatch, question, employees, authedUser }) => {
       }}
     >
       <Box sx={{ m: 2 }}>
-        <Avatar src={employees[question.author]?.avatarURL} />
+        <Avatar src={employees?.[question?.author]?.avatarURL} />
         <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
           {question?.author} asked...
         </Typography>
@@ -48,11 +48,11 @@ const Question = ({ dispatch, question, employees, authedUser }) => {
 
       <h2>Would you rather?</h2>
       <Typography sx={{ textAlign: "center", mb: 2 }}>
-        {question.optionOne.text} ({optionOneVotePercentage}%)
+        {question?.optionOne.text} ({optionOneVotePercentage}%)
       </Typography>
       <b>OR</b>
       <Typography sx={{ textAlign: "center", mt: 2 }}>
-        {question.optionTwo.text} ({optionTwoVotePercentage}%)
+        {question?.optionTwo.text} ({optionTwoVotePercentage}%)
       </Typography>
       <div>
         <Button
@@ -60,6 +60,7 @@ const Question = ({ dispatch, question, employees, authedUser }) => {
           variant={"contained"}
           sx={{ width: 1 / 4, m: 2 }}
           onClick={voteClicked}
+          data-testid="voteOptionOne"
         >
           Option 1
         </Button>
@@ -68,6 +69,7 @@ const Question = ({ dispatch, question, employees, authedUser }) => {
           variant={"contained"}
           sx={{ width: 1 / 4, m: 2 }}
           onClick={voteClicked}
+          data-testid="voteOptionTwo"
         >
           Option 2
         </Button>
