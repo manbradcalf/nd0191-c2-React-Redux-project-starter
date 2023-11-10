@@ -20,10 +20,9 @@ export function saveQuestion(question, authedUserId) {
   return _saveQuestion(question, authedUserId);
 }
 
-export function saveQuestionAnswer(authedUser, questionId, answer) {
-  return _saveQuestionAnswer(authedUser, questionId, answer);
+export function saveQuestionAnswer(authedUser, qid, answer) {
+  return _saveQuestionAnswer({ authedUser, qid, answer });
 }
-
 
 export const checkAuth = (authedUser, component, componentName) => {
   if (!authedUser) {
