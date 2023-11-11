@@ -1,14 +1,12 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { connect } from "react-redux";
-import { Avatar } from "@mui/material";
-import { Box } from "@mui/material";
-import { handleQuestionAnswered } from "../actions/shared";
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { connect } from 'react-redux';
+import { Avatar } from '@mui/material';
+import { Box } from '@mui/material';
+import { handleQuestionAnswered } from '../actions/shared';
 
-// todo: theres a bug in this component
-// after voting, the avatars go away
 const Question = ({ dispatch, question, employees, authedUser, loading }) => {
   const asker = employees?.[question?.author];
 
@@ -23,6 +21,8 @@ const Question = ({ dispatch, question, employees, authedUser, loading }) => {
     (optionTwoVoteCount / voteCount) * 100
   );
 
+  const userAnswer = employees[authedUser].answers[question.id] ?? '';
+
   const voteClicked = (event) => {
     event.preventDefault();
     const answer = event.target.value;
@@ -32,47 +32,51 @@ const Question = ({ dispatch, question, employees, authedUser, loading }) => {
   return (
     <Card
       sx={{
-        backgroundColor: "#fff",
+        backgroundColor: '#fff',
         borderRadius: 2,
-        textAlign: "center",
-        alignItems: "center",
-        fontWeight: "light",
+        textAlign: 'center',
+        alignItems: 'center',
+        fontWeight: 'light',
       }}
     >
       <Box sx={{ m: 2 }}>
         <Avatar src={employees?.[question?.author]?.avatarURL} />
-        <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
+        <Typography sx={{ fontStyle: 'italic', textAlign: 'start' }}>
           {question?.author} asked...
         </Typography>
       </Box>
 
       <h2>Would you rather?</h2>
-      <Typography sx={{ textAlign: "center", mb: 2 }}>
+      <Typography sx={{ textAlign: 'center', mb: 2 }}>
         {question?.optionOne.text} ({optionOneVotePercentage}%)
       </Typography>
       <b>OR</b>
-      <Typography sx={{ textAlign: "center", mt: 2 }}>
+      <Typography sx={{ textAlign: 'center', mt: 2 }}>
         {question?.optionTwo.text} ({optionTwoVotePercentage}%)
       </Typography>
       <div>
         <Button
+          disabled={userAnswer !== ''}
           value="optionOne"
-          variant={"contained"}
+          variant={'contained'}
           sx={{ width: 1 / 4, m: 2 }}
           onClick={voteClicked}
           data-testid="voteOptionOne"
         >
           Option 1
         </Button>
+        {question.optionOne.votes.map(user=><p>{user} voted for option one</p>)}
         <Button
+          disabled={userAnswer !== ''}
           value="optionTwo"
-          variant={"contained"}
+          variant={'contained'}
           sx={{ width: 1 / 4, m: 2 }}
           onClick={voteClicked}
           data-testid="voteOptionTwo"
         >
           Option 2
         </Button>
+        {question.optionTwo.votes.map(user=><p>{user} voted for option two</p>)}
       </div>
     </Card>
   );
