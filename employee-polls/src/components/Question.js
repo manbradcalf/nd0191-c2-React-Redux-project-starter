@@ -7,7 +7,7 @@ import { Avatar } from '@mui/material';
 import { Box } from '@mui/material';
 import { handleQuestionAnswered } from '../actions/shared';
 
-const Question = ({ dispatch, question, employees, authedUser, loading }) => {
+const Question = ({ question, employees, authedUser, loading }) => {
   const asker = employees?.[question?.author];
 
   const optionOneVoteCount = question?.optionOne.votes.length;
@@ -21,14 +21,13 @@ const Question = ({ dispatch, question, employees, authedUser, loading }) => {
     (optionTwoVoteCount / voteCount) * 100
   );
 
-  const userAnswer = employees[authedUser].answers[question.id] ?? '';
+  const votedAlready = employees[authedUser].answers[question.id]
+    ? true
+    : false;
 
-  const voteClicked = (event) => {
-    event.preventDefault();
-    const answer = event.target.value;
-    dispatch(handleQuestionAnswered(question?.id, answer, authedUser));
-  };
-
+  const buttonClicked = (event) => {
+    console.log("clicked button for " + question)
+  }
   return (
     <Card
       sx={{
@@ -56,27 +55,13 @@ const Question = ({ dispatch, question, employees, authedUser, loading }) => {
       </Typography>
       <div>
         <Button
-          disabled={userAnswer !== ''}
-          value="optionOne"
+          value={question.id}
           variant={'contained'}
           sx={{ width: 1 / 4, m: 2 }}
-          onClick={voteClicked}
-          data-testid="voteOptionOne"
+          onClick={buttonClicked}
         >
-          Option 1
+          {votedAlready ? 'View' : 'Vote'}
         </Button>
-        {question.optionOne.votes.map(user=><p>{user} voted for option one</p>)}
-        <Button
-          disabled={userAnswer !== ''}
-          value="optionTwo"
-          variant={'contained'}
-          sx={{ width: 1 / 4, m: 2 }}
-          onClick={voteClicked}
-          data-testid="voteOptionTwo"
-        >
-          Option 2
-        </Button>
-        {question.optionTwo.votes.map(user=><p>{user} voted for option two</p>)}
       </div>
     </Card>
   );

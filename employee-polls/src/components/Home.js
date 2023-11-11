@@ -7,30 +7,40 @@
 // The user can navigate to the leaderboard.
 // The user can navigate to the form that allows the user to create a new poll.
 
-import React from "react";
-import { connect } from "react-redux";
-import { authedComponent } from "../util/helpers";
-import Questions from "./Questions";
-const Home = ({
-  dispatch,
-  questionsProp,
-  employeesProp,
-  authedUser,
-  loadingProp,
-}) => {
+import React from 'react';
+import { connect } from 'react-redux';
+import { authedComponent } from '../util/helpers';
+import Questions from './Questions';
+
+const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
   const component = (
     <div className="bordered">
       <h1>Home</h1>
       <div className="bordered">
-        <Questions />
+        <div>
+          <h2>Answered</h2>
+          <Questions
+            questions={questions.filter((q) =>
+              q.optionOne.votes.includes(authedUser) ||
+              q.optionTwo.votes.includes(authedUser)
+            )}
+          />
+          <h2>Unanswered</h2>
+          <Questions
+            questions={questions.filter((q) =>
+              !q.optionOne.votes.includes(authedUser) &&
+              !q.optionTwo.votes.includes(authedUser)
+            )}
+          />
+        </div>
       </div>
     </div>
   );
   // loading state
-  if (loadingProp) {
+  if (loading) {
     return <h1>Loading!</h1>;
   } else {
-    return authedComponent(authedUser, component, "Home");
+    return authedComponent(authedUser, component, 'Home');
   }
 };
 
@@ -39,10 +49,10 @@ const mapStateToProps = ({ questions, employees, authedUser }) => {
   const questionsList = questions ? Object.values(questions) : [];
   const employeesList = employees ? Object.values(employees) : [];
   return {
-    questionsProp: questionsList,
-    employeesProp: employeesList,
-    authedUser: authedUser ? authedUser : "",
-    loadingProp: questionsList.length === 0 && employeesList.length === 0,
+    questions: questionsList,
+    employees: employeesList,
+    authedUser: authedUser ? authedUser : '',
+    loading: questionsList.length === 0 && employeesList.length === 0,
   };
 };
 
