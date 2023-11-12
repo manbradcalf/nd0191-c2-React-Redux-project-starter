@@ -13,25 +13,26 @@ import { authedComponent } from '../util/helpers';
 import Questions from './Questions';
 
 const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
+  const answeredQuestions = questions.filter(
+    (q) =>
+      q.optionOne.votes.includes(authedUser) ||
+      q.optionTwo.votes.includes(authedUser)
+  );
+  const unansweredQuestions = questions.filter(
+    (q) =>
+      !q.optionOne.votes.includes(authedUser) &&
+      !q.optionTwo.votes.includes(authedUser)
+  );
+
   const component = (
     <div className="bordered">
       <h1>Home</h1>
       <div className="bordered">
         <div>
           <h2>Answered</h2>
-          <Questions
-            questions={questions.filter((q) =>
-              q.optionOne.votes.includes(authedUser) ||
-              q.optionTwo.votes.includes(authedUser)
-            )}
-          />
+          <Questions questions={answeredQuestions} />
           <h2>Unanswered</h2>
-          <Questions
-            questions={questions.filter((q) =>
-              !q.optionOne.votes.includes(authedUser) &&
-              !q.optionTwo.votes.includes(authedUser)
-            )}
-          />
+          <Questions questions={unansweredQuestions} />
         </div>
       </div>
     </div>

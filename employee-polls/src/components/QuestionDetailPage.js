@@ -6,14 +6,17 @@ import { connect } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { Box } from '@mui/material';
 import { handleQuestionAnswered } from '../actions/shared';
+import { useParams } from 'react-router-dom';
 
 const QuestionDetail = ({
   dispatch,
-  question,
+  questions,
   employees,
   authedUser,
   loading,
 }) => {
+  const { id } = useParams();
+  const question = questions[id];
   const asker = employees?.[question?.author];
 
   const optionOneVoteCount = question?.optionOne.votes.length;
@@ -28,7 +31,7 @@ const QuestionDetail = ({
     (optionTwoVoteCount / voteCount) * 100
   );
 
-  const userAnswer = employees[authedUser].answers[question.id] ?? '';
+  const userAnswer = employees[authedUser]?.answers[question.id] ?? '';
 
   const voteClicked = (event) => {
     event.preventDefault();
@@ -36,6 +39,7 @@ const QuestionDetail = ({
     dispatch(handleQuestionAnswered(question?.id, answer, authedUser));
   };
 
+  if (!authedUser) {return <h1>Not found! Please log in to view question</h1>} else {
   return (
     <Card
       sx={{
@@ -72,7 +76,7 @@ const QuestionDetail = ({
         >
           Option 1
         </Button>
-        {question.optionOne.votes.map((user) => (
+        {question?.optionOne.votes.map((user) => (
           <p>{user} voted for option one</p>
         ))}
         <Button
@@ -85,14 +89,14 @@ const QuestionDetail = ({
         >
           Option 2
         </Button>
-        {question.optionTwo.votes.map((user) => (
+        {question?.optionTwo.votes.map((user) => (
           <p>{user} voted for option two</p>
         ))}
       </div>
     </Card>
   );
 };
-
+}
 const mapStateToProps = ({ employees, questions, authedUser }) => ({
   employees,
   questions,

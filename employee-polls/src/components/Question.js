@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { Box } from '@mui/material';
 import { handleQuestionAnswered } from '../actions/shared';
+import { Link } from 'react-router-dom';
 
 const Question = ({ question, employees, authedUser, loading }) => {
   const asker = employees?.[question?.author];
@@ -25,9 +26,6 @@ const Question = ({ question, employees, authedUser, loading }) => {
     ? true
     : false;
 
-  const buttonClicked = (event) => {
-    console.log("clicked button for " + question)
-  }
   return (
     <Card
       sx={{
@@ -40,12 +38,14 @@ const Question = ({ question, employees, authedUser, loading }) => {
     >
       <Box sx={{ m: 2 }}>
         <Avatar src={employees?.[question?.author]?.avatarURL} />
-        <Typography sx={{ fontStyle: 'italic', textAlign: 'start' }}>
+        <Typography
+          sx={{ fontStyle: 'italic', textAlign: 'start', fontSize: 'small' }}
+        >
           {question?.author} asked...
         </Typography>
+        <Typography sx={{ fontStyle: 'bold' }}>Would you rather</Typography>
       </Box>
 
-      <h2>Would you rather?</h2>
       <Typography sx={{ textAlign: 'center', mb: 2 }}>
         {question?.optionOne.text} ({optionOneVotePercentage}%)
       </Typography>
@@ -54,14 +54,15 @@ const Question = ({ question, employees, authedUser, loading }) => {
         {question?.optionTwo.text} ({optionTwoVotePercentage}%)
       </Typography>
       <div>
-        <Button
-          value={question.id}
-          variant={'contained'}
-          sx={{ width: 1 / 4, m: 2 }}
-          onClick={buttonClicked}
-        >
-          {votedAlready ? 'View' : 'Vote'}
-        </Button>
+        <Link to={`/question/${question.id}`}>
+          <Button
+            value={question.id}
+            variant={'contained'}
+            sx={{ width: 1 / 4, m: 2 }}
+          >
+            {votedAlready ? 'View' : 'Vote'}
+          </Button>
+        </Link>
       </div>
     </Card>
   );
