@@ -7,6 +7,7 @@ import { Avatar } from '@mui/material';
 import { Box } from '@mui/material';
 import { handleQuestionAnswered } from '../actions/shared';
 import { useParams } from 'react-router-dom';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const QuestionDetail = ({
   dispatch,
@@ -39,64 +40,92 @@ const QuestionDetail = ({
     dispatch(handleQuestionAnswered(question?.id, answer, authedUser));
   };
 
-  if (!authedUser) {return <h1>Not found! Please log in to view question</h1>} else {
-  return (
-    <Card
-      sx={{
-        backgroundColor: '#fff',
-        borderRadius: 2,
-        textAlign: 'center',
-        alignItems: 'center',
-        fontWeight: 'light',
-      }}
-    >
-      <Box sx={{ m: 2 }}>
-        <Avatar src={employees?.[question?.author]?.avatarURL} />
-        <Typography sx={{ fontStyle: 'italic', textAlign: 'start' }}>
-          {question?.author} asked...
-        </Typography>
-      </Box>
+  if (!authedUser) {
+    return <h1>Not found! Please log in to view question</h1>;
+  } else {
+    return (
+      <Box
+        sx={{
+          width: '75%',
+          m: 2,
+          p: 2,
+        }}
+      >
+        <Card
+          sx={{
+            backgroundColor: '#fff',
+            borderRadius: 2,
+            textAlign: 'center',
+            alignItems: 'center',
+            fontWeight: 'light',
+          }}
+        >
+          <Box sx={{ m: 2 }}>
+            <Avatar src={employees?.[question?.author]?.avatarURL} />
+            <Typography sx={{ fontStyle: 'italic', textAlign: 'start' }}>
+              {question?.author} asked...
+            </Typography>
+          </Box>
 
-      <h2>Would you rather?</h2>
-      <Typography sx={{ textAlign: 'center', mb: 2 }}>
-        {question?.optionOne.text} ({optionOneVotePercentage}%)
-      </Typography>
-      <b>OR</b>
-      <Typography sx={{ textAlign: 'center', mt: 2 }}>
-        {question?.optionTwo.text} ({optionTwoVotePercentage}%)
-      </Typography>
-      <div>
-        <Button
-          disabled={userAnswer !== ''}
-          value="optionOne"
-          variant={'contained'}
-          sx={{ width: 1 / 4, m: 2 }}
-          onClick={voteClicked}
-          data-testid="voteOptionOne"
-        >
-          Option 1
-        </Button>
-        {question?.optionOne.votes.map((user) => (
-          <p>{user} voted for option one</p>
-        ))}
-        <Button
-          disabled={userAnswer !== ''}
-          value="optionTwo"
-          variant={'contained'}
-          sx={{ width: 1 / 4, m: 2 }}
-          onClick={voteClicked}
-          data-testid="voteOptionTwo"
-        >
-          Option 2
-        </Button>
-        {question?.optionTwo.votes.map((user) => (
-          <p>{user} voted for option two</p>
-        ))}
-      </div>
-    </Card>
-  );
+          <h2>Would you rather?</h2>
+          <Typography sx={{ textAlign: 'center', mb: 2 }}>
+            {question?.optionOne.text} ({optionOneVotePercentage}%)
+                <LinearProgress
+                  variant="determinate"
+                  value={optionOneVotePercentage}
+                  sx={{width:'75%',ml:10}}
+                />
+          </Typography>
+          <b>OR</b>
+          <Typography sx={{ textAlign: 'center', mt: 2 }}>
+            {question?.optionTwo.text} ({optionTwoVotePercentage}%)
+                <LinearProgress
+                  variant="determinate"
+                  value={optionTwoVotePercentage}
+                  sx={{width:'75%',ml:10}}
+                />
+          </Typography>
+          <div>
+            <Button
+              disabled={userAnswer !== ''}
+              value="optionOne"
+              variant={'contained'}
+              sx={{ width: 1 / 4, m: 2 }}
+              onClick={voteClicked}
+              data-testid="voteOptionOne"
+            >
+              Option 1
+            </Button>
+            {userAnswer && (
+              <Box sx={{ width: '50%', alignContent: 'center' }}>
+                {question?.optionOne.votes.map((user) => (
+                  <p>{user} voted for option one</p>
+                ))}
+              </Box>
+            )}
+            <Button
+              disabled={userAnswer !== ''}
+              value="optionTwo"
+              variant={'contained'}
+              sx={{ width: 1 / 4, m: 2 }}
+              onClick={voteClicked}
+              data-testid="voteOptionTwo"
+            >
+              Option 2
+            </Button>
+            {userAnswer && (
+              <Box sx={{ width: '50%', alignContent: 'center' }}>
+                {question?.optionTwo.votes.map((user) => (
+                  <p>{user} voted for option two</p>
+                ))}
+              </Box>
+            )}
+          </div>
+        </Card>
+      </Box>
+    );
+  }
 };
-}
 const mapStateToProps = ({ employees, questions, authedUser }) => ({
   employees,
   questions,
