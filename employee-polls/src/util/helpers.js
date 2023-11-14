@@ -1,4 +1,5 @@
-import Login from '../components/Login';
+import Login from "../components/Login";
+import { Paper } from "@mui/material";
 
 export const authedComponent = (authedUser, component, componentName) => {
   if (!authedUser) {
@@ -9,10 +10,6 @@ export const authedComponent = (authedUser, component, componentName) => {
       </div>
     );
   } else {
-    return (
-      <div className="bordered">
-        {component}
-      </div>
-    );
+    return <Paper sx={{ p: 2 }}>{component}</Paper>;
   }
 };

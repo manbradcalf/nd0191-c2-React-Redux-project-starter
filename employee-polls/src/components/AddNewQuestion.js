@@ -3,7 +3,7 @@
 // The new polling question appears in the correct category on the home page.
 // The form is available at/add.
 import React from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Box, Typography } from "@mui/material";
 import { connect } from "react-redux";
 import { handleAddNewQuestion } from "../actions/questions";
 import { useState } from "react";
@@ -29,21 +29,22 @@ const AddNewQuestion = ({ store, dispatch, authedUser }) => {
   };
 
   const component = (
-    <div className="bordered">
-      <h1>Ask a Question!</h1>
-      <p>Would you rather?</p>
-      <TextField variant="standard" onChange={handleOptionOne} />
-      <p>or</p>
+    <Box sx={{ textAlign: "center", alignItems: "center" }}>
+      <Typography variant="h6">Would you rather...</Typography>
+      <TextField
+        variant="standard"
+        onChange={handleOptionOne}
+        sx={{ textAlign: "center" }}
+      />
+      <br />
+      <Typography variant="subheader">or</Typography>
+      <br />
       <TextField variant="standard" onChange={handleOptionTwo} />
       <br />
-      {authedUser ? (
-        <Button variant="outlined" onClick={handleSubmit}>
-          Submit
-        </Button>
-      ) : (
-        <b> Please log in to submit a question</b>
-      )}
-    </div>
+      <Button variant="outlined" onClick={handleSubmit} sx={{ m: 2 }}>
+        Submit
+      </Button>
+    </Box>
   );
 
   return authedComponent(authedUser, component, "Ask a Question");

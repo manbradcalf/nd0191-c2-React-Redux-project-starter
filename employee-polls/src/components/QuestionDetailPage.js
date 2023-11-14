@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Typography, Box, Avatar, Button } from '@mui/material';
-import { connect } from 'react-redux';
-import { handleQuestionAnswered } from '../actions/shared';
-import { useParams } from 'react-router-dom';
-import LinearProgress from '@mui/material/LinearProgress';
+import * as React from "react";
+import { Typography, Box, Avatar, Button } from "@mui/material";
+import { connect } from "react-redux";
+import { handleQuestionAnswered } from "../actions/shared";
+import { useParams } from "react-router-dom";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const QuestionDetail = ({
   dispatch,
@@ -27,7 +27,7 @@ const QuestionDetail = ({
     (optionTwoVoteCount / voteCount) * 100
   );
 
-  const userAnswer = employees[authedUser]?.answers[question.id] ?? '';
+  const userAnswer = employees[authedUser]?.answers[question.id] ?? "";
 
   const voteClicked = (event) => {
     event.preventDefault();
@@ -39,45 +39,36 @@ const QuestionDetail = ({
     return <h1>Not found! Please log in to view question</h1>;
   } else {
     return (
-      <Box
-        sx={{
-          width: '75%',
-          m: 2,
-          p: 2,
-        }}
-      >
+      <Box>
         <Box
           sx={{
-            backgroundColor: '#fff',
+            backgroundColor: "#fff",
             borderRadius: 2,
-            textAlign: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-            fontWeight: 'light',
+            textAlign: "center",
+            fontWeight: "light",
           }}
         >
           <Avatar src={employees?.[question?.author]?.avatarURL} />
-          <Typography sx={{ fontStyle: 'italic', textAlign: 'start' }}>
+          <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
             {question?.author} asked...
           </Typography>
         </Box>
 
-        <Typography variant="h4" textAlign={'center'}>
+        <Typography variant="h4" textAlign={"center"}>
           Would you rather?
         </Typography>
 
-        <Typography sx={{ textAlign: 'center', mb: 2 }}>
+        <Typography sx={{ textAlign: "center", mb: 2 }}>
           {question?.optionOne.text} ({optionOneVotePercentage}%)
           <LinearProgress
             variant="determinate"
             value={optionOneVotePercentage}
-            sx={{ width: '75%', ml: 10 }}
           />
         </Typography>
         {userAnswer && (
           <Box textAlign="center">
             <Typography variant="caption">
-              Votes: {question.optionOne.votes.join(' ')}
+              Votes: {question.optionOne.votes.join(" ")}
             </Typography>
             <br />
             <Typography variant="caption">
@@ -85,17 +76,16 @@ const QuestionDetail = ({
             </Typography>
           </Box>
         )}
-        <Typography sx={{ textAlign: 'center', mt: 2 }}>
+        <Typography sx={{ textAlign: "center", mt: 2 }}>
           {question?.optionTwo.text}
           <LinearProgress
             variant="determinate"
             value={optionTwoVotePercentage}
-            sx={{ width: '75%', ml: 10 }}
           />
           {userAnswer && (
             <Box>
               <Typography variant="caption">
-                Votes: {question.optionTwo.votes.join(' ')}
+                Votes: {question.optionTwo.votes.join(" ")}
               </Typography>
               <br />
               <Typography variant="caption">
@@ -107,9 +97,9 @@ const QuestionDetail = ({
 
         <Box display="flex" justifyContent="center" alignItems="center">
           <Button
-            disabled={userAnswer !== ''}
+            disabled={userAnswer !== ""}
             value="optionOne"
-            variant={'contained'}
+            variant={"contained"}
             sx={{ width: 1 / 4, m: 2 }}
             onClick={voteClicked}
             data-testid="voteOptionOne"
@@ -117,9 +107,9 @@ const QuestionDetail = ({
             Option 1
           </Button>
           <Button
-            disabled={userAnswer !== ''}
+            disabled={userAnswer !== ""}
             value="optionTwo"
-            variant={'contained'}
+            variant={"contained"}
             sx={{ width: 1 / 4, m: 2 }}
             onClick={voteClicked}
             data-testid="voteOptionTwo"
