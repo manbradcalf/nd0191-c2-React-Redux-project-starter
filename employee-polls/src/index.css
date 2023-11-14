@@ -7,19 +7,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.app {
+  display: block;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 .bordered {
   border: 1px solid;
+  border-radius: 1vw;
   padding: 1vw;
   margin: 1vw;
 }
 
 .navbar {
-  float: right;
-  display: inline;
+  display: block;
+  margin: 2vw;
   padding: 1vw;
 }
 

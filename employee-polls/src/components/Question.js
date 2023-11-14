@@ -5,22 +5,9 @@ import Typography from '@mui/material/Typography';
 import { connect } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { Box } from '@mui/material';
-import { handleQuestionAnswered } from '../actions/shared';
 import { Link } from 'react-router-dom';
 
 const QuestionCard = ({ question, employees, authedUser, loading }) => {
-  const asker = employees?.[question?.author];
-
-  const optionOneVoteCount = question?.optionOne.votes.length;
-  const optionTwoVoteCount = question?.optionTwo.votes.length;
-  const voteCount = optionOneVoteCount + optionTwoVoteCount;
-
-  const optionOneVotePercentage = Math.round(
-    (optionOneVoteCount / voteCount) * 100
-  );
-  const optionTwoVotePercentage = Math.round(
-    (optionTwoVoteCount / voteCount) * 100
-  );
 
   const votedAlready = employees[authedUser].answers[question.id]
     ? true
@@ -34,25 +21,27 @@ const QuestionCard = ({ question, employees, authedUser, loading }) => {
         textAlign: 'center',
         alignItems: 'center',
         fontWeight: 'light',
-        m:2
+        m: 2,
       }}
     >
-      <Box sx={{ m: 2 }}>
+      <Box sx={{ m: 2, p: 2 }}>
         <Avatar src={employees?.[question?.author]?.avatarURL} />
         <Typography
           sx={{ fontStyle: 'italic', textAlign: 'start', fontSize: 'small' }}
         >
           {question?.author} asked...
         </Typography>
-        <Typography sx={{ fontStyle: 'bold' }}>Would you rather</Typography>
+        <Typography sx={{ fontStyle: 'bold' }} variant="h6">
+          Would you rather...
+        </Typography>
       </Box>
 
       <Typography sx={{ textAlign: 'center', mb: 2 }}>
-        {question?.optionOne.text} ({optionOneVotePercentage}%)
+        {question?.optionOne.text}
       </Typography>
       <b>OR</b>
       <Typography sx={{ textAlign: 'center', mt: 2 }}>
-        {question?.optionTwo.text} ({optionTwoVotePercentage}%)
+        {question?.optionTwo.text}
       </Typography>
       <div>
         <Link to={`/question/${question.id}`}>

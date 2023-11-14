@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
 import { connect } from 'react-redux';
 import { setAuthedUser } from '../actions/authedUser';
 import { Typography } from '@mui/material';
 
 const NavBar = ({ dispatch, authedUser }) => {
+  // todo: cleanup
   const handleAuth = (event) => {
     event.preventDefault();
-    console.log('handleAuth', authedUser);
     if (authedUser) {
       dispatch(setAuthedUser(null));
     } else {
@@ -17,34 +16,32 @@ const NavBar = ({ dispatch, authedUser }) => {
   };
 
   return (
-    <div>
-      <nav className="navbar">
-        <ul>
-          <li>
-            <Link to="/">
-              <Typography variant="button">Home</Typography>
-            </Link>
-          </li>
-          <li>
-            <Link to="/leaderboard">
-              <Typography variant="button">Leaderboard</Typography>
-            </Link>
-          </li>
-          <li>
-            <Link to="/add">
-              <Typography variant="button">Ask</Typography>
-            </Link>
-          </li>
-          <li>
-            <Link onClick={handleAuth}>
-              <Typography variant="button">
-                {authedUser ? 'Log Out' : 'Log In'}
-              </Typography>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav className="navbar">
+      <ul>
+        <li key="home">
+          <Link to="/">
+            <Typography variant="button">Home</Typography>
+          </Link>
+        </li>
+        <li key="leaderboard">
+          <Link to="/leaderboard">
+            <Typography variant="button">Leaderboard</Typography>
+          </Link>
+        </li>
+        <li key="ask">
+          <Link to="/add">
+            <Typography variant="button">Ask</Typography>
+          </Link>
+        </li>
+        <li key="auth">
+          <Link onClick={handleAuth}>
+            <Typography variant="button">
+              {authedUser ? 'Log Out' : 'Log In'}
+            </Typography>
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 };
 const mapStateToProps = ({ authedUser }) => ({

@@ -1,10 +1,6 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Typography, Box, Avatar, Button } from '@mui/material';
 import { connect } from 'react-redux';
-import { Avatar } from '@mui/material';
-import { Box } from '@mui/material';
 import { handleQuestionAnswered } from '../actions/shared';
 import { useParams } from 'react-router-dom';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -18,7 +14,6 @@ const QuestionDetail = ({
 }) => {
   const { id } = useParams();
   const question = questions[id];
-  const asker = employees?.[question?.author];
 
   const optionOneVoteCount = question?.optionOne.votes.length;
   const optionTwoVoteCount = question?.optionTwo.votes.length;
@@ -82,7 +77,7 @@ const QuestionDetail = ({
         {userAnswer && (
           <Box textAlign="center">
             <Typography variant="caption">
-              Votes: {question.optionOne.votes.join(" ")}
+              Votes: {question.optionOne.votes.join(' ')}
             </Typography>
             <br />
             <Typography variant="caption">
@@ -100,7 +95,7 @@ const QuestionDetail = ({
           {userAnswer && (
             <Box>
               <Typography variant="caption">
-                Votes: {question.optionTwo.votes.join(" ")}
+                Votes: {question.optionTwo.votes.join(' ')}
               </Typography>
               <br />
               <Typography variant="caption">

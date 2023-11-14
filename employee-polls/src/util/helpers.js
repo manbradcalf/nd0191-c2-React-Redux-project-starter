@@ -1,4 +1,4 @@
-import Login from "../components/Login";
+import Login from '../components/Login';
 
 export const authedComponent = (authedUser, component, componentName) => {
   if (!authedUser) {
@@ -9,6 +9,10 @@ export const authedComponent = (authedUser, component, componentName) => {
       </div>
     );
   } else {
-    return component;
+    return (
+      <div className="bordered">
+        {component}
+      </div>
+    );
   }
 };
