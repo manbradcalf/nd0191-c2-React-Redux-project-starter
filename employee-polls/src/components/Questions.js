@@ -7,8 +7,6 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 const Questions = ({ questions }) => {
   return (
     <div>
-      <div className="bordered">
-        <h2>Questions</h2>
         <Grid2 container rowSpacing={2} columns={2}>
           {questions?.map((question) => {
             return (
@@ -18,7 +16,6 @@ const Questions = ({ questions }) => {
             );
           })}
         </Grid2>
-      </div>
     </div>
   );
 };

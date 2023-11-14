@@ -7,10 +7,11 @@
 // The user can navigate to the leaderboard.
 // The user can navigate to the form that allows the user to create a new poll.
 
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { authedComponent } from '../util/helpers';
 import Questions from './Questions';
+import { Tabs, Tab } from '@mui/material';
 
 const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
   const answeredQuestions = questions.filter(
@@ -24,19 +25,36 @@ const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
       !q.optionTwo.votes.includes(authedUser)
   );
 
+  const [selected, setSelected] = useState(0);
+
+  const handleChange = (event, selectedTab) => {
+    setSelected(selectedTab);
+  };
+
   const component = (
-    <div className="bordered">
-      <h1>Home</h1>
-      <div className="bordered">
-        <div>
-          <h2>Answered</h2>
-          <Questions questions={answeredQuestions} />
-          <h2>Unanswered</h2>
-          <Questions questions={unansweredQuestions} />
+    <div>
+      <div>
+        <Tabs value={selected} onChange={handleChange}>
+          <Tab label="Unanswered" />
+          <Tab label="Answered" />
+        </Tabs>
+
+        <div hidden={selected === 1}>
+          <Questions
+            questions={unansweredQuestions}
+            isSelected={selected === 'unanswered'}
+          />
+        </div>
+        <div hidden={selected === 0}>
+          <Questions
+            questions={answeredQuestions}
+            isSelected={selected === 'answered'}
+          />
         </div>
       </div>
     </div>
   );
+
   // loading state
   if (loading) {
     return <h1>Loading!</h1>;

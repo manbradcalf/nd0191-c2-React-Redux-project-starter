@@ -1,37 +1,48 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
-import { connect } from "react-redux";
-import { setAuthedUser } from "../actions/authedUser";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { connect } from 'react-redux';
+import { setAuthedUser } from '../actions/authedUser';
+import { Typography } from '@mui/material';
 
 const NavBar = ({ dispatch, authedUser }) => {
   const handleAuth = (event) => {
     event.preventDefault();
-    console.log("handleAuth", authedUser);
+    console.log('handleAuth', authedUser);
     if (authedUser) {
       dispatch(setAuthedUser(null));
     } else {
-      console.log("You are logged out. Navigate to Log In component for auth");
+      console.log('You are logged out. Navigate to Log In component for auth');
     }
   };
 
   return (
-    <div className="bordered">
+    <div>
       <nav className="navbar">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">
+              <Typography variant="button">Home</Typography>
+            </Link>
           </li>
           <li>
-            <Link to="/leaderboard">Leaderboard</Link>
+            <Link to="/leaderboard">
+              <Typography variant="button">Leaderboard</Typography>
+            </Link>
           </li>
           <li>
-            <Link to="/add">Ask</Link>
+            <Link to="/add">
+              <Typography variant="button">Ask</Typography>
+            </Link>
+          </li>
+          <li>
+            <Link onClick={handleAuth}>
+              <Typography variant="button">
+                {authedUser ? 'Log Out' : 'Log In'}
+              </Typography>
+            </Link>
           </li>
         </ul>
-        <Button variant="outlined" onClick={handleAuth}>
-          {authedUser ? "Log Out" : "Log In"}
-        </Button>
       </nav>
     </div>
   );

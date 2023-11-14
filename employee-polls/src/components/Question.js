@@ -8,7 +8,7 @@ import { Box } from '@mui/material';
 import { handleQuestionAnswered } from '../actions/shared';
 import { Link } from 'react-router-dom';
 
-const Question = ({ question, employees, authedUser, loading }) => {
+const QuestionCard = ({ question, employees, authedUser, loading }) => {
   const asker = employees?.[question?.author];
 
   const optionOneVoteCount = question?.optionOne.votes.length;
@@ -34,6 +34,7 @@ const Question = ({ question, employees, authedUser, loading }) => {
         textAlign: 'center',
         alignItems: 'center',
         fontWeight: 'light',
+        m:2
       }}
     >
       <Box sx={{ m: 2 }}>
@@ -74,4 +75,4 @@ const mapStateToProps = ({ employees, questions, authedUser }) => ({
   authedUser,
 });
 
-export default connect(mapStateToProps)(Question);
+export default connect(mapStateToProps)(QuestionCard);

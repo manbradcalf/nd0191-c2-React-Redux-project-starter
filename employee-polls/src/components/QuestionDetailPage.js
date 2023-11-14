@@ -51,77 +51,87 @@ const QuestionDetail = ({
           p: 2,
         }}
       >
-        <Card
+        <Box
           sx={{
             backgroundColor: '#fff',
             borderRadius: 2,
             textAlign: 'center',
+            alignContent: 'center',
             alignItems: 'center',
             fontWeight: 'light',
           }}
         >
-          <Box sx={{ m: 2 }}>
-            <Avatar src={employees?.[question?.author]?.avatarURL} />
-            <Typography sx={{ fontStyle: 'italic', textAlign: 'start' }}>
-              {question?.author} asked...
+          <Avatar src={employees?.[question?.author]?.avatarURL} />
+          <Typography sx={{ fontStyle: 'italic', textAlign: 'start' }}>
+            {question?.author} asked...
+          </Typography>
+        </Box>
+
+        <Typography variant="h4" textAlign={'center'}>
+          Would you rather?
+        </Typography>
+
+        <Typography sx={{ textAlign: 'center', mb: 2 }}>
+          {question?.optionOne.text} ({optionOneVotePercentage}%)
+          <LinearProgress
+            variant="determinate"
+            value={optionOneVotePercentage}
+            sx={{ width: '75%', ml: 10 }}
+          />
+        </Typography>
+        {userAnswer && (
+          <Box textAlign="center">
+            <Typography variant="caption">
+              Votes: {question.optionOne.votes.join(" ")}
+            </Typography>
+            <br />
+            <Typography variant="caption">
+              {optionOneVotePercentage}%
             </Typography>
           </Box>
+        )}
+        <Typography sx={{ textAlign: 'center', mt: 2 }}>
+          {question?.optionTwo.text}
+          <LinearProgress
+            variant="determinate"
+            value={optionTwoVotePercentage}
+            sx={{ width: '75%', ml: 10 }}
+          />
+          {userAnswer && (
+            <Box>
+              <Typography variant="caption">
+                Votes: {question.optionTwo.votes.join(" ")}
+              </Typography>
+              <br />
+              <Typography variant="caption">
+                {optionTwoVotePercentage}%
+              </Typography>
+            </Box>
+          )}
+        </Typography>
 
-          <h2>Would you rather?</h2>
-          <Typography sx={{ textAlign: 'center', mb: 2 }}>
-            {question?.optionOne.text} ({optionOneVotePercentage}%)
-                <LinearProgress
-                  variant="determinate"
-                  value={optionOneVotePercentage}
-                  sx={{width:'75%',ml:10}}
-                />
-          </Typography>
-          <b>OR</b>
-          <Typography sx={{ textAlign: 'center', mt: 2 }}>
-            {question?.optionTwo.text} ({optionTwoVotePercentage}%)
-                <LinearProgress
-                  variant="determinate"
-                  value={optionTwoVotePercentage}
-                  sx={{width:'75%',ml:10}}
-                />
-          </Typography>
-          <div>
-            <Button
-              disabled={userAnswer !== ''}
-              value="optionOne"
-              variant={'contained'}
-              sx={{ width: 1 / 4, m: 2 }}
-              onClick={voteClicked}
-              data-testid="voteOptionOne"
-            >
-              Option 1
-            </Button>
-            {userAnswer && (
-              <Box sx={{ width: '50%', alignContent: 'center' }}>
-                {question?.optionOne.votes.map((user) => (
-                  <p>{user} voted for option one</p>
-                ))}
-              </Box>
-            )}
-            <Button
-              disabled={userAnswer !== ''}
-              value="optionTwo"
-              variant={'contained'}
-              sx={{ width: 1 / 4, m: 2 }}
-              onClick={voteClicked}
-              data-testid="voteOptionTwo"
-            >
-              Option 2
-            </Button>
-            {userAnswer && (
-              <Box sx={{ width: '50%', alignContent: 'center' }}>
-                {question?.optionTwo.votes.map((user) => (
-                  <p>{user} voted for option two</p>
-                ))}
-              </Box>
-            )}
-          </div>
-        </Card>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Button
+            disabled={userAnswer !== ''}
+            value="optionOne"
+            variant={'contained'}
+            sx={{ width: 1 / 4, m: 2 }}
+            onClick={voteClicked}
+            data-testid="voteOptionOne"
+          >
+            Option 1
+          </Button>
+          <Button
+            disabled={userAnswer !== ''}
+            value="optionTwo"
+            variant={'contained'}
+            sx={{ width: 1 / 4, m: 2 }}
+            onClick={voteClicked}
+            data-testid="voteOptionTwo"
+          >
+            Option 2
+          </Button>
+        </Box>
       </Box>
     );
   }
