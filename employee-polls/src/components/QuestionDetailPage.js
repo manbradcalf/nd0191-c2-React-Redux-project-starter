@@ -69,7 +69,7 @@ const QuestionDetail = ({
           <Box>
             <Typography variant="caption">
               Votes [{question.optionOne.votes.length}]:{" "}
-              {question.optionOne.votes.join(" ")}
+              {question.optionOne.votes.join(", ")}
             </Typography>
 
             <br />
@@ -97,7 +97,7 @@ const QuestionDetail = ({
             <Box>
               <Typography variant="caption">
                 Votes [{question.optionTwo.votes.length}]:{" "}
-                {question.optionTwo.votes.join(" ")}
+                {question.optionTwo.votes.join(", ")}
               </Typography>
               <br />
               <Typography variant="caption">
