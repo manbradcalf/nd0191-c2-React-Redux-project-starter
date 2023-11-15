@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { setAuthedUser } from '../actions/authedUser';
-import { Typography } from '@mui/material';
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { setAuthedUser } from "../actions/authedUser";
+import { Typography } from "@mui/material";
 
 const NavBar = ({ dispatch, authedUser }) => {
   // todo: cleanup
@@ -11,7 +11,7 @@ const NavBar = ({ dispatch, authedUser }) => {
     if (authedUser) {
       dispatch(setAuthedUser(null));
     } else {
-      console.log('You are logged out. Navigate to Log In component for auth');
+      console.log("You are logged out. Navigate to Log In component for auth");
     }
   };
 
@@ -36,10 +36,15 @@ const NavBar = ({ dispatch, authedUser }) => {
         <li key="auth">
           <Link onClick={handleAuth}>
             <Typography variant="button">
-              {authedUser ? 'Log Out' : 'Log In'}
+              {authedUser ? "Log Out" : "Log In"}
             </Typography>
           </Link>
         </li>
+        {authedUser && (
+          <li>
+            <Typography>Welcome {authedUser}!</Typography>
+          </li>
+        )}
       </ul>
     </nav>
   );
