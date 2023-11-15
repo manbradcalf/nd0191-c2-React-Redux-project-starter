@@ -29,6 +29,9 @@ const QuestionDetail = ({
 
   const userAnswer = employees[authedUser]?.answers[question.id] ?? "";
 
+  const optionOneColor = userAnswer === "optionOne" ? "lightgreen" : "white";
+  const optionTwoColor = userAnswer === "optionTwo" ? "lightgreen" : "white";
+
   const voteClicked = (event) => {
     event.preventDefault();
     const answer = event.target.value;
@@ -48,7 +51,7 @@ const QuestionDetail = ({
         Would you rather?
       </Typography>
 
-      <Box sx={{ m: 5 }}>
+      <Box sx={{ m: 5, backgroundColor: optionOneColor }}>
         <Typography sx={{ textAlign: "center" }}>
           {question?.optionOne.text}
 
@@ -65,7 +68,8 @@ const QuestionDetail = ({
         {userAnswer && (
           <Box>
             <Typography variant="caption">
-              Votes [{question.optionOne.votes.length}]: {question.optionOne.votes.join(" ")}
+              Votes [{question.optionOne.votes.length}]:{" "}
+              {question.optionOne.votes.join(" ")}
             </Typography>
 
             <br />
@@ -76,7 +80,7 @@ const QuestionDetail = ({
         )}
       </Box>
 
-      <Box sx={{ m: 5 }}>
+      <Box sx={{ m: 5, backgroundColor: optionTwoColor }}>
         <Typography>
           {question?.optionTwo.text}
 
@@ -92,7 +96,8 @@ const QuestionDetail = ({
           {userAnswer && (
             <Box>
               <Typography variant="caption">
-                Votes [{question.optionTwo.votes.length}]: {question.optionTwo.votes.join(" ")}
+                Votes [{question.optionTwo.votes.length}]:{" "}
+                {question.optionTwo.votes.join(" ")}
               </Typography>
               <br />
               <Typography variant="caption">
