@@ -1,14 +1,13 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { connect } from 'react-redux';
-import { Avatar } from '@mui/material';
-import { Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import Card from "@mui/material/Card";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { connect } from "react-redux";
+import { Avatar } from "@mui/material";
+import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const QuestionCard = ({ question, employees, authedUser, loading }) => {
-
   const votedAlready = employees[authedUser].answers[question.id]
     ? true
     : false;
@@ -16,41 +15,62 @@ const QuestionCard = ({ question, employees, authedUser, loading }) => {
   return (
     <Card
       sx={{
-        backgroundColor: '#fff',
+        backgroundColor: "#fff",
         borderRadius: 2,
-        textAlign: 'center',
-        alignItems: 'center',
-        fontWeight: 'light',
+        textAlign: "center",
+        alignItems: "center",
+        fontWeight: "light",
         m: 2,
       }}
     >
-      <Box sx={{ m: 2, p: 2 }}>
-        <Avatar src={employees?.[question?.author]?.avatarURL} />
+
+      <Box width="fit-content" sx={{ m: 1, p: 1 }}>
+        <Avatar
+          src={employees?.[question?.author]?.avatarURL}
+          sx={{ margin: "auto" }}
+        />
         <Typography
-          sx={{ fontStyle: 'italic', textAlign: 'start', fontSize: 'small' }}
+          sx={{
+            fontStyle: "italic",
+            m: "auto",
+          }}
         >
-          {question?.author} asked...
+          {question?.author}
         </Typography>
-        <Typography sx={{ fontStyle: 'bold' }} variant="h6">
-          Would you rather...
+        <Typography
+          sx={{
+            fontStyle: "caption",
+            fontSize: "x-small",
+            m: "auto",
+          }}
+        >
+          {new Date(question.timestamp).toLocaleDateString("en-us", {
+            weekday: "long",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
         </Typography>
       </Box>
+      <Typography sx={{ fontStyle: "bold" }} variant="h6">
+        Would you rather...
+      </Typography>
 
-      <Typography sx={{ textAlign: 'center', mb: 2 }}>
+      <Typography sx={{ textAlign: "center", mb: 2 }}>
         {question?.optionOne.text}
       </Typography>
       <b>OR</b>
-      <Typography sx={{ textAlign: 'center', mt: 2 }}>
+      <Typography sx={{ textAlign: "center", mt: 2 }}>
         {question?.optionTwo.text}
       </Typography>
       <div>
         <Link to={`/question/${question.id}`}>
           <Button
             value={question.id}
-            variant={'contained'}
+            variant={"contained"}
             sx={{ width: 1 / 4, m: 2 }}
           >
-            {votedAlready ? 'View' : 'Vote'}
+            {votedAlready ? "View" : "Vote"}
           </Button>
         </Link>
       </div>

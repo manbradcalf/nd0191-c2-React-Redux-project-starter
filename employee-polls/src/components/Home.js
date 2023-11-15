@@ -7,25 +7,34 @@
 // The user can navigate to the leaderboard.
 // The user can navigate to the form that allows the user to create a new poll.
 
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { authedComponent } from '../util/helpers';
-import Questions from './Questions';
-import { Tabs, Tab } from '@mui/material';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { authedComponent } from "../util/helpers";
+import Questions from "./Questions";
+import { Tabs, Tab } from "@mui/material";
 
 const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
-  const answeredQuestions = questions.filter(
-    (q) =>
-      q.optionOne.votes.includes(authedUser) ||
-      q.optionTwo.votes.includes(authedUser)
-  );
-  const unansweredQuestions = questions.filter(
-    (q) =>
-      !q.optionOne.votes.includes(authedUser) &&
-      !q.optionTwo.votes.includes(authedUser)
-  );
-
   const [selected, setSelected] = useState(0);
+
+  const answeredQuestions = questions
+    .filter(
+      (q) =>
+        q.optionOne.votes.includes(authedUser) ||
+        q.optionTwo.votes.includes(authedUser)
+    )
+    .sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    });
+
+  const unansweredQuestions = questions
+    .filter(
+      (q) =>
+        !q.optionOne.votes.includes(authedUser) &&
+        !q.optionTwo.votes.includes(authedUser)
+    )
+    .sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    });
 
   const handleChange = (event, selectedTab) => {
     setSelected(selectedTab);
@@ -42,13 +51,13 @@ const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
         <div hidden={selected === 1}>
           <Questions
             questions={unansweredQuestions}
-            isSelected={selected === 'unanswered'}
+            isSelected={selected === "unanswered"}
           />
         </div>
         <div hidden={selected === 0}>
           <Questions
             questions={answeredQuestions}
-            isSelected={selected === 'answered'}
+            isSelected={selected === "answered"}
           />
         </div>
       </div>
@@ -59,7 +68,7 @@ const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
   if (loading) {
     return <h1>Loading!</h1>;
   } else {
-    return authedComponent(authedUser, component, 'Home');
+    return authedComponent(authedUser, component, "Home");
   }
 };
 
@@ -70,7 +79,7 @@ const mapStateToProps = ({ questions, employees, authedUser }) => {
   return {
     questions: questionsList,
     employees: employeesList,
-    authedUser: authedUser ? authedUser : '',
+    authedUser: authedUser ? authedUser : "",
     loading: questionsList.length === 0 && employeesList.length === 0,
   };
 };

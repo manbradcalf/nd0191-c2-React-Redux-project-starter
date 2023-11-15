@@ -29,19 +29,38 @@ const AddNewQuestion = ({ store, dispatch, authedUser }) => {
   };
 
   const component = (
-    <Box sx={{ textAlign: "center", alignItems: "center" }}>
-      <Typography variant="h6">Would you rather...</Typography>
-      <TextField
-        variant="standard"
-        onChange={handleOptionOne}
-        sx={{ textAlign: "center" }}
-      />
-      <br />
-      <Typography variant="subheader">or</Typography>
-      <br />
-      <TextField variant="standard" onChange={handleOptionTwo} />
-      <br />
-      <Button variant="outlined" onClick={handleSubmit} sx={{ m: 2 }}>
+    <Box textAlign={"center"}>
+      <Typography variant="h6" padding={"2vw"}>
+        Would you rather...
+      </Typography>
+
+      <Box width={"auto"}>
+        <TextField
+          id="optionOne"
+          label="Option One"
+          multiline
+          rows={2}
+          onChange={handleOptionOne}
+          defaultValue="Buy an Android"
+          sx={{ width: 1 / 2 }}
+        />
+        <Typography sx={{ m: 2 }}> or </Typography>
+        <TextField
+          id="optionTwo"
+          label="Option Two"
+          multiline
+          rows={2}
+          defaultValue="Buy an iPhone"
+          onChange={handleOptionTwo}
+          sx={{ width: 1 / 2 }}
+        />
+      </Box>
+      <Button
+        display={"block"}
+        variant="outlined"
+        onClick={handleSubmit}
+        sx={{ m: 2 }}
+      >
         Submit
       </Button>
     </Box>

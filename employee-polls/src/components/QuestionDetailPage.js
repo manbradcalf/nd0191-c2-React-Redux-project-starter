@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { handleQuestionAnswered } from "../actions/shared";
 import { useParams } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
+import { authedComponent } from "../util/helpers";
 
 const QuestionDetail = ({
   dispatch,
@@ -38,8 +39,8 @@ const QuestionDetail = ({
     dispatch(handleQuestionAnswered(question?.id, answer, authedUser));
   };
 
-  return (
-    <Paper sx={{ textAlign: "center", p: 5 }}>
+
+  const component = <Paper sx={{ textAlign: "center", p: 5 }}>
       <Box>
         <Avatar src={employees?.[question?.author]?.avatarURL} />
         <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
@@ -130,7 +131,8 @@ const QuestionDetail = ({
         </Button>
       </Box>
     </Paper>
-  );
+
+    return authedComponent(authedUser,component, "Question")
 };
 const mapStateToProps = ({ employees, questions, authedUser }) => ({
   employees,
