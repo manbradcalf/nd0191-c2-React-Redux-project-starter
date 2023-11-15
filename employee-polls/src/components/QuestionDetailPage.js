@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Typography, Box, Avatar, Button } from "@mui/material";
+import { Typography, Box, Avatar, Button, Paper } from "@mui/material";
 import { connect } from "react-redux";
 import { handleQuestionAnswered } from "../actions/shared";
 import { useParams } from "react-router-dom";
@@ -35,57 +35,64 @@ const QuestionDetail = ({
     dispatch(handleQuestionAnswered(question?.id, answer, authedUser));
   };
 
-  if (!authedUser) {
-    return <h1>Not found! Please log in to view question</h1>;
-  } else {
-    return (
+  return (
+    <Paper sx={{ textAlign: "center", p: 5 }}>
       <Box>
-        <Box
-          sx={{
-            backgroundColor: "#fff",
-            borderRadius: 2,
-            textAlign: "center",
-            fontWeight: "light",
-          }}
-        >
-          <Avatar src={employees?.[question?.author]?.avatarURL} />
-          <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
-            {question?.author} asked...
-          </Typography>
-        </Box>
-
-        <Typography variant="h4" textAlign={"center"}>
-          Would you rather?
+        <Avatar src={employees?.[question?.author]?.avatarURL} />
+        <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
+          {question?.author} asked...
         </Typography>
+      </Box>
 
-        <Typography sx={{ textAlign: "center", mb: 2 }}>
-          {question?.optionOne.text} ({optionOneVotePercentage}%)
+      <Typography variant="h4" textAlign="center">
+        Would you rather?
+      </Typography>
+
+      <Box sx={{ m: 5 }}>
+        <Typography sx={{ textAlign: "center" }}>
+          {question?.optionOne.text}
+
           <LinearProgress
+            sx={{
+              width: "50vw",
+              m: "auto",
+            }}
             variant="determinate"
             value={optionOneVotePercentage}
           />
         </Typography>
+
         {userAnswer && (
-          <Box textAlign="center">
+          <Box>
             <Typography variant="caption">
-              Votes: {question.optionOne.votes.join(" ")}
+              Votes [{question.optionOne.votes.length}]: {question.optionOne.votes.join(" ")}
             </Typography>
+
             <br />
             <Typography variant="caption">
               {optionOneVotePercentage}%
             </Typography>
           </Box>
         )}
-        <Typography sx={{ textAlign: "center", mt: 2 }}>
+      </Box>
+
+      <Box sx={{ m: 5 }}>
+        <Typography>
           {question?.optionTwo.text}
+
           <LinearProgress
             variant="determinate"
+            sx={{
+              width: "50vw",
+              m: "auto",
+            }}
             value={optionTwoVotePercentage}
           />
+
           {userAnswer && (
             <Box>
               <Typography variant="caption">
-                Votes: {question.optionTwo.votes.join(" ")}
+                Votes [{question.optionTwo.votes.length}]: {question.optionTwo.votes.join(" ")}
               </Typography>
               <br />
               <Typography variant="caption">
@@ -94,32 +101,31 @@ const QuestionDetail = ({
             </Box>
           )}
         </Typography>
-
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <Button
-            disabled={userAnswer !== ""}
-            value="optionOne"
-            variant={"contained"}
-            sx={{ width: 1 / 4, m: 2 }}
-            onClick={voteClicked}
-            data-testid="voteOptionOne"
-          >
-            Option 1
-          </Button>
-          <Button
-            disabled={userAnswer !== ""}
-            value="optionTwo"
-            variant={"contained"}
-            sx={{ width: 1 / 4, m: 2 }}
-            onClick={voteClicked}
-            data-testid="voteOptionTwo"
-          >
-            Option 2
-          </Button>
-        </Box>
       </Box>
-    );
-  }
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Button
+          disabled={userAnswer !== ""}
+          value="optionOne"
+          variant={"contained"}
+          sx={{ width: 1 / 4, m: 2 }}
+          onClick={voteClicked}
+          data-testid="voteOptionOne"
+        >
+          Option 1
+        </Button>
+        <Button
+          disabled={userAnswer !== ""}
+          value="optionTwo"
+          variant={"contained"}
+          sx={{ width: 1 / 4, m: 2 }}
+          onClick={voteClicked}
+          data-testid="voteOptionTwo"
+        >
+          Option 2
+        </Button>
+      </Box>
+    </Paper>
+  );
 };
 const mapStateToProps = ({ employees, questions, authedUser }) => ({
   employees,
