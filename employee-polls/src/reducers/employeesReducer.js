@@ -5,7 +5,7 @@ import {
 } from "../actions/employees";
 
 export default function employeesReducer(state = {}, action) {
-  const { authedUser, question, employees, answer } = action;
+  const { authedUser, employees, answer, qid } = action;
   switch (action.type) {
     case RECEIVE_EMPLOYEES:
       return {
@@ -18,7 +18,7 @@ export default function employeesReducer(state = {}, action) {
         ...state,
         [action.authedUser]: {
           ...state[action.authedUser],
-          questions: state[authedUser].questions.concat(action.qid),
+          questions: state[authedUser].questions.concat(qid),
         },
       };
 

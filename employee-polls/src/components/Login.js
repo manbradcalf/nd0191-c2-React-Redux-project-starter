@@ -16,7 +16,7 @@ import { Select, InputLabel, MenuItem, FormControl } from "@mui/material";
 import { connect } from "react-redux";
 import { useState } from "react";
 import { setAuthedUser } from "../actions/authedUser";
-import { Typography, Paper, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 const Login = ({ dispatch, employees, authedUser }) => {
   const [selectedUser] = useState("");
@@ -44,7 +44,7 @@ const Login = ({ dispatch, employees, authedUser }) => {
           onChange={handleChange}
         >
           {employees?.map((employee) => {
-            return <MenuItem value={employee.name}>{employee.name}</MenuItem>;
+            return <MenuItem value={employee.name} key={employee.name}>{employee.name}</MenuItem>;
           })}
         </Select>
       </FormControl>

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { setAuthedUser } from "../actions/authedUser";
 import {
   Paper,
-  Button,
   Container,
   Box,
   Typography,
