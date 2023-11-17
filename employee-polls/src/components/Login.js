@@ -16,6 +16,7 @@ import { Select, InputLabel, MenuItem, FormControl } from "@mui/material";
 import { connect } from "react-redux";
 import { useState } from "react";
 import { setAuthedUser } from "../actions/authedUser";
+import { Typography, Paper, Box } from "@mui/material";
 
 const Login = ({ dispatch, employees, authedUser }) => {
   const [selectedUser] = useState("");
@@ -32,8 +33,8 @@ const Login = ({ dispatch, employees, authedUser }) => {
   };
 
   return (
-    <div className="bordered">
-      <h1>Login</h1>
+    <Box sx={{ p: 2, m: 2 }}>
+      <Typography variant="h4">Login</Typography>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">User</InputLabel>
         <Select
@@ -47,7 +48,7 @@ const Login = ({ dispatch, employees, authedUser }) => {
           })}
         </Select>
       </FormControl>
-    </div>
+    </Box>
   );
 };
 

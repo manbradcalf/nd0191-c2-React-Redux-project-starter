@@ -39,8 +39,8 @@ const QuestionDetail = ({
     dispatch(handleQuestionAnswered(question?.id, answer, authedUser));
   };
 
-
-  const component = <Paper sx={{ textAlign: "center", p: 5 }}>
+  const component = (
+    <Paper sx={{ textAlign: "center", p: 5 }}>
       <Box>
         <Avatar src={employees?.[question?.author]?.avatarURL} />
         <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
@@ -52,7 +52,9 @@ const QuestionDetail = ({
         Would you rather?
       </Typography>
 
-      <Box sx={{ m: 5, backgroundColor: optionOneColor }}>
+      <Box
+        sx={{ m: 5, backgroundColor: optionOneColor, borderRadius: 2, p: 2 }}
+      >
         <Typography sx={{ textAlign: "center" }}>
           {question?.optionOne.text}
 
@@ -81,7 +83,9 @@ const QuestionDetail = ({
         )}
       </Box>
 
-      <Box sx={{ m: 5, backgroundColor: optionTwoColor }}>
+      <Box
+        sx={{ m: 5, backgroundColor: optionTwoColor, borderRadius: 2, p: 2 }}
+      >
         <Typography>
           {question?.optionTwo.text}
 
@@ -131,8 +135,9 @@ const QuestionDetail = ({
         </Button>
       </Box>
     </Paper>
+  );
 
-    return authedComponent(authedUser,component, "Question")
+  return authedComponent(authedUser, component, "Question");
 };
 const mapStateToProps = ({ employees, questions, authedUser }) => ({
   employees,

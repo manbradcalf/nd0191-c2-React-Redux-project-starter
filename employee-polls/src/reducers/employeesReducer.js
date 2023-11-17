@@ -18,7 +18,7 @@ export default function employeesReducer(state = {}, action) {
         ...state,
         [action.authedUser]: {
           ...state[action.authedUser],
-          questions: state[authedUser].questions.concat(question.id),
+          questions: state[authedUser].questions.concat(action.qid),
         },
       };
 
@@ -28,8 +28,8 @@ export default function employeesReducer(state = {}, action) {
         [action.authedUser]: {
           ...state[authedUser],
           answers: {
-            ...state[authedUser].answers, 
-            [action.qid]:answer
+            ...state[authedUser].answers,
+            [action.qid]: answer,
           },
         },
       };

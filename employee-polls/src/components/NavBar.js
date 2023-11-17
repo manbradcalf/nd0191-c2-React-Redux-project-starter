@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAuthedUser } from "../actions/authedUser";
-import { Paper, Button, Container, Box, Typography } from "@mui/material";
+import {
+  Paper,
+  Button,
+  Container,
+  Box,
+  Typography,
+  Avatar,
+} from "@mui/material";
 
-const NavBar = ({ dispatch, authedUser }) => {
+const NavBar = ({ dispatch, authedUser, avatarURL }) => {
   // todo: cleanup
   const [selectedPage, setSelectedPage] = useState(null);
 
@@ -45,7 +52,6 @@ const NavBar = ({ dispatch, authedUser }) => {
             display: "inline-flex",
             p: 2,
             color: selectedPage === "Leaderboard" ? "grey" : "#1976d2",
-            textEmphasisStyle:"sesame"
           }}
           variant="h6"
         >
@@ -66,30 +72,37 @@ const NavBar = ({ dispatch, authedUser }) => {
         </Typography>
       </Link>
 
-      <Container sx={{ float: "right", width: "auto", display: "block" }}>
+      <Container sx={{ float: "right", width: "auto", display:"inline-flex" }}>
+
+        {authedUser && (
+          <Box>
+            <Avatar src={avatarURL} sx={{ margin: "auto" }} />
+            <Typography variant="caption" sx={{ display: "block" }}>
+              {authedUser}
+            </Typography>
+          </Box>
+        )}
+
         <Link to="/login" onClick={handleAuth}>
           <Typography
             onClick={handleAuth}
             sx={{
-              display: "block",
-              color: authedUser ? "red" : "#1976d2",
+              display: "inline-flex",
+              p: 2,
+              color: "#1976d2",
             }}
             variant="h6"
           >
             {authedUser ? "Log Out" : "Log In"}
           </Typography>
         </Link>
-        {authedUser ? (
-          <Typography variant="caption">Welcome {authedUser}</Typography>
-        ) : (
-          <Typography variant="caption">Get started.</Typography>
-        )}
       </Container>
     </Paper>
   );
 };
-const mapStateToProps = ({ authedUser }) => ({
-  authedUser,
+const mapStateToProps = ({ authedUser, employees }) => ({
+  authedUser: authedUser,
+  avatarURL: employees[authedUser]?.avatarURL,
 });
 
 export default connect(mapStateToProps)(NavBar);

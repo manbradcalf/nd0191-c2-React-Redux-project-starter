@@ -1,15 +1,17 @@
 import Login from "../components/Login";
-import { Paper } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 
 export const authedComponent = (authedUser, component, componentName) => {
   if (!authedUser) {
     return (
-      <div>
-        <h1>Please login to view {componentName}</h1>
+      <Paper sx={{ p: 2 }}>
+        <Typography variant="h4" sx={{ p: 2, m: 2 }}>
+          Please login to view {componentName}
+        </Typography>
         <Login />
-      </div>
+      </Paper>
     );
   } else {
-    return <Paper sx={{ p: 2 }}>{component}</Paper>;
+    return <Box sx={{ p: 2 }}>{component}</Box>;
   }
 };
