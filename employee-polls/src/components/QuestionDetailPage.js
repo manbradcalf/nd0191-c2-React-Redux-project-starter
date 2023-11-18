@@ -146,7 +146,7 @@ const QuestionDetail = ({
   ) : (
     <Container>
       <Typography sx={{ textAlign: 'center' }}>404 - Not Found</Typography>
-      <Login/>
+      {!authedUser && <Login/>}
     </Container>
   );
 
