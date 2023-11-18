@@ -1,10 +1,18 @@
 import * as React from 'react';
-import { Typography, Box, Avatar, Button, Paper } from '@mui/material';
+import {
+  Typography,
+  Box,
+  Avatar,
+  Container,
+  Button,
+  Paper,
+} from '@mui/material';
 import { connect } from 'react-redux';
 import { handleQuestionAnswered } from '../actions/shared';
 import { useParams } from 'react-router-dom';
 import LinearProgress from '@mui/material/LinearProgress';
 import { authedComponent } from '../util/helpers';
+import Login from './Login';
 
 const QuestionDetail = ({
   dispatch,
@@ -136,7 +144,10 @@ const QuestionDetail = ({
       </Box>
     </Paper>
   ) : (
-    <Typography>404 - Not Found</Typography>
+    <Container>
+      <Typography sx={{ textAlign: 'center' }}>404 - Not Found</Typography>
+      <Login/>
+    </Container>
   );
 
   return authedComponent(authedUser, component, 'Question');
