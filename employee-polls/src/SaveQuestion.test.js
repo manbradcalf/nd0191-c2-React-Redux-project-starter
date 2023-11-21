@@ -8,8 +8,11 @@ describe("SaveQuestion", () => {
       author: "test",
     };
 
-    _saveQuestion(question, "tylermcginnis").then((res) => {
+    await _saveQuestion(question, "tylermcginnis").then((res) => {
+      console.log(res)
       expect(res.id).toBeDefined();
+      expect(res.optionOne.votes.length).toBe(0);
+      expect(res.optionTwo.votes.length).toBe(0);
       expect(question.optionOneText).toMatch(res.optionOne.text);
       expect(question.optionTwoText).toMatch(res.optionTwo.text);
       expect(question.author).toMatch(res.author);
@@ -23,7 +26,7 @@ describe("SaveQuestion", () => {
       number: 42,
     };
 
-    _saveQuestion(invalidQuestion, "tylermcginnis").catch((e) =>
+    await _saveQuestion(invalidQuestion, "tylermcginnis").catch((e) =>
       expect(e).toMatch(
         "Please provide optionOneText, optionTwoText, and author"
       )

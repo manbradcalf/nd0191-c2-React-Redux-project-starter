@@ -11,8 +11,7 @@ describe("SaveQuestionAnswer", () => {
       answer: "optionOne",
     };
 
-    let res = await _saveQuestionAnswer(answer);
-    expect(res);
+    await _saveQuestionAnswer(answer).then(res => expect(res));
   });
 
   it("returns an error when incorrectly formatted data is passed to the function", async () => {
@@ -22,10 +21,8 @@ describe("SaveQuestionAnswer", () => {
       number: 42,
     };
 
-    _saveQuestionAnswer(invalidAnswer).catch((e) =>
-      expect(e).toMatch(
-        "Please provide authedUser, qid, and answer"
-      )
-    );
+    await _saveQuestionAnswer(invalidAnswer).catch((e) => {
+      expect(e).toMatch("Please provide authedUser, qid, and answer");
+    });
   });
 });
