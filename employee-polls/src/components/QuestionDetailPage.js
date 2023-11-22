@@ -1,10 +1,18 @@
-import * as React from "react";
-import { Typography, Box, Avatar, Button, Paper } from "@mui/material";
-import { connect } from "react-redux";
-import { handleQuestionAnswered } from "../actions/shared";
-import { useParams } from "react-router-dom";
-import LinearProgress from "@mui/material/LinearProgress";
-import { authedComponent } from "../util/helpers";
+import * as React from 'react';
+import {
+  Typography,
+  Box,
+  Avatar,
+  Container,
+  Button,
+  Paper,
+} from '@mui/material';
+import { connect } from 'react-redux';
+import { handleQuestionAnswered } from '../actions/shared';
+import { useParams } from 'react-router-dom';
+import LinearProgress from '@mui/material/LinearProgress';
+import { authedComponent } from '../util/helpers';
+import Login from './Login';
 
 const QuestionDetail = ({
   dispatch,
@@ -28,10 +36,10 @@ const QuestionDetail = ({
     (optionTwoVoteCount / voteCount) * 100
   );
 
-  const userAnswer = employees[authedUser]?.answers[question.id] ?? "";
+  const userAnswer = employees[authedUser]?.answers[question?.id] ?? '';
 
-  const optionOneColor = userAnswer === "optionOne" ? "lightgreen" : "white";
-  const optionTwoColor = userAnswer === "optionTwo" ? "lightgreen" : "white";
+  const optionOneColor = userAnswer === 'optionOne' ? 'lightgreen' : 'white';
+  const optionTwoColor = userAnswer === 'optionTwo' ? 'lightgreen' : 'white';
 
   const voteClicked = (event) => {
     event.preventDefault();
@@ -39,11 +47,11 @@ const QuestionDetail = ({
     dispatch(handleQuestionAnswered(question?.id, answer, authedUser));
   };
 
-  const component = (
-    <Paper sx={{ textAlign: "center", p: 5 }}>
+  const component = question ? (
+    <Paper sx={{ textAlign: 'center', p: 5 }}>
       <Box>
         <Avatar src={employees?.[question?.author]?.avatarURL} />
-        <Typography sx={{ fontStyle: "italic", textAlign: "start" }}>
+        <Typography sx={{ fontStyle: 'italic', textAlign: 'start' }}>
           {question?.author} asked...
         </Typography>
       </Box>
@@ -55,13 +63,13 @@ const QuestionDetail = ({
       <Box
         sx={{ m: 5, backgroundColor: optionOneColor, borderRadius: 2, p: 2 }}
       >
-        <Typography sx={{ textAlign: "center" }}>
+        <Typography sx={{ textAlign: 'center' }}>
           {question?.optionOne.text}
 
           <LinearProgress
             sx={{
-              width: "50vw",
-              m: "auto",
+              width: '50vw',
+              m: 'auto',
             }}
             variant="determinate"
             value={optionOneVotePercentage}
@@ -71,8 +79,8 @@ const QuestionDetail = ({
         {userAnswer && (
           <Box>
             <Typography variant="caption">
-              Votes [{question.optionOne.votes.length}]:{" "}
-              {question.optionOne.votes.join(", ")}
+              Votes [{question.optionOne.votes.length}]:{' '}
+              {question.optionOne.votes.join(', ')}
             </Typography>
 
             <br />
@@ -92,8 +100,8 @@ const QuestionDetail = ({
           <LinearProgress
             variant="determinate"
             sx={{
-              width: "50vw",
-              m: "auto",
+              width: '50vw',
+              m: 'auto',
             }}
             value={optionTwoVotePercentage}
           />
@@ -101,8 +109,8 @@ const QuestionDetail = ({
           {userAnswer && (
             <Box>
               <Typography variant="caption">
-                Votes [{question.optionTwo.votes.length}]:{" "}
-                {question.optionTwo.votes.join(", ")}
+                Votes [{question.optionTwo.votes.length}]:{' '}
+                {question.optionTwo.votes.join(', ')}
               </Typography>
               <br />
               <Typography variant="caption">
@@ -114,9 +122,9 @@ const QuestionDetail = ({
       </Box>
       <Box display="flex" justifyContent="center" alignItems="center">
         <Button
-          disabled={userAnswer !== ""}
+          disabled={userAnswer !== ''}
           value="optionOne"
-          variant={"contained"}
+          variant={'contained'}
           sx={{ width: 1 / 4, m: 2 }}
           onClick={voteClicked}
           data-testid="voteOptionOne"
@@ -124,9 +132,9 @@ const QuestionDetail = ({
           Option 1
         </Button>
         <Button
-          disabled={userAnswer !== ""}
+          disabled={userAnswer !== ''}
           value="optionTwo"
-          variant={"contained"}
+          variant={'contained'}
           sx={{ width: 1 / 4, m: 2 }}
           onClick={voteClicked}
           data-testid="voteOptionTwo"
@@ -135,9 +143,14 @@ const QuestionDetail = ({
         </Button>
       </Box>
     </Paper>
+  ) : (
+    <Container>
+      <Typography sx={{ textAlign: 'center' }}>404 - Not Found</Typography>
+      {!authedUser && <Login/>}
+    </Container>
   );
 
-  return authedComponent(authedUser, component, "Question");
+  return authedComponent(authedUser, component, 'Question');
 };
 const mapStateToProps = ({ employees, questions, authedUser }) => ({
   employees,

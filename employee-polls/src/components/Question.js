@@ -56,11 +56,11 @@ const QuestionCard = ({ question, employees, authedUser, loading }) => {
         Would you rather...
       </Typography>
 
-      <Typography sx={{ textAlign: "center", mb: 2 }}>
+      <Typography sx={{ textAlign: "center", mb: 2,paddingInline:2 }}>
         {question?.optionOne.text}
       </Typography>
       <b>OR</b>
-      <Typography sx={{ textAlign: "center", mt: 2 }}>
+      <Typography sx={{ textAlign: "center", mt: 2,paddingInline:2 }}>
         {question?.optionTwo.text}
       </Typography>
       <div>
