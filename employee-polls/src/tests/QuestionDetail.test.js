@@ -1,12 +1,12 @@
 import { render, fireEvent, getByTestId } from '@testing-library/react';
 import React from 'react';
-import QuestionDetail from './components/QuestionDetailPage';
+import QuestionDetail from '../components/QuestionDetailPage';
 import configureStore from 'redux-mock-store';
 import { exampleState } from './exampleState';
-import middleware from './middleware';
-import reducer from './reducers';
+import middleware from '../middleware';
+import reducer from '../reducers';
 import { Provider } from 'react-redux';
-import { handleQuestionAnswered } from './actions/shared';
+import { handleQuestionAnswered } from '../actions/shared';
 import Router from 'react-router-dom';
 
 const mockState = exampleState;

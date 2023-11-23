@@ -1,7 +1,7 @@
 // The following two unit tests must be present for _saveQuestionAnswer():
 // An async unit test to verify that true is returned when correctly formatted data is passed to the function.
 // An async unit test to verify that an error is returned if incorrect data is passed to the function.
-import { _saveQuestionAnswer } from './util/_DATA';
+import { _saveQuestionAnswer } from '../util/_DATA';
 
 describe('SaveQuestionAnswer', () => {
   it('returns true when correctly formatted data is passed to the function', async () => {

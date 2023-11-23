@@ -1,4 +1,4 @@
-import { _saveQuestion } from "./util/_DATA";
+import { _saveQuestion } from "../util/_DATA";
 
 describe("SaveQuestion", () => {
   it("returns true when correctly formatted data is passed to the function", async () => {
