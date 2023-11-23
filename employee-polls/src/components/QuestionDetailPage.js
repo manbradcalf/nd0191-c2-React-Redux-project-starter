@@ -14,15 +14,9 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { authedComponent } from '../util/helpers';
 import Login from './Login';
 
-const QuestionDetail = ({
-  dispatch,
-  questions,
-  employees,
-  authedUser,
-  loading,
-}) => {
+const QuestionDetail = ({ dispatch, questions, employees, authedUser }) => {
   const { id } = useParams();
-  const question = questions[id];
+  const question = questions?.[id];
 
   const optionOneVoteCount = question?.optionOne.votes.length;
   const optionTwoVoteCount = question?.optionTwo.votes.length;
@@ -36,7 +30,7 @@ const QuestionDetail = ({
     (optionTwoVoteCount / voteCount) * 100
   );
 
-  const userAnswer = employees[authedUser]?.answers[question?.id] ?? '';
+  const userAnswer = employees?.[authedUser]?.answers[question?.id] ?? '';
 
   const optionOneColor = userAnswer === 'optionOne' ? 'lightgreen' : 'white';
   const optionTwoColor = userAnswer === 'optionTwo' ? 'lightgreen' : 'white';
@@ -65,22 +59,21 @@ const QuestionDetail = ({
       >
         <Typography sx={{ textAlign: 'center' }}>
           {question?.optionOne.text}
-
-          <LinearProgress
-            sx={{
-              width: '50vw',
-              m: 'auto',
-            }}
-            variant="determinate"
-            value={optionOneVotePercentage}
-          />
         </Typography>
+        <LinearProgress
+          sx={{
+            width: '50vw',
+            m: 'auto',
+          }}
+          variant="determinate"
+          value={optionOneVotePercentage}
+        />
 
         {userAnswer && (
           <Box>
             <Typography variant="caption">
-              Votes [{question.optionOne.votes.length}]:{' '}
-              {question.optionOne.votes.join(', ')}
+              Votes [{question?.optionOne.votes.length}]:{' '}
+              {question?.optionOne.votes.join(', ')}
             </Typography>
 
             <br />
@@ -94,31 +87,28 @@ const QuestionDetail = ({
       <Box
         sx={{ m: 5, backgroundColor: optionTwoColor, borderRadius: 2, p: 2 }}
       >
-        <Typography>
-          {question?.optionTwo.text}
+        <Typography>{question?.optionTwo.text}</Typography>
+        <LinearProgress
+          variant="determinate"
+          sx={{
+            width: '50vw',
+            m: 'auto',
+          }}
+          value={optionTwoVotePercentage}
+        />
 
-          <LinearProgress
-            variant="determinate"
-            sx={{
-              width: '50vw',
-              m: 'auto',
-            }}
-            value={optionTwoVotePercentage}
-          />
-
-          {userAnswer && (
-            <Box>
-              <Typography variant="caption">
-                Votes [{question.optionTwo.votes.length}]:{' '}
-                {question.optionTwo.votes.join(', ')}
-              </Typography>
-              <br />
-              <Typography variant="caption">
-                {optionTwoVotePercentage}%
-              </Typography>
-            </Box>
-          )}
-        </Typography>
+        {userAnswer && (
+          <Box>
+            <Typography variant="caption">
+              Votes [{question?.optionTwo.votes.length}]:{' '}
+              {question?.optionTwo.votes.join(', ')}
+            </Typography>
+            <br />
+            <Typography variant="caption">
+              {optionTwoVotePercentage}%
+            </Typography>
+          </Box>
+        )}
       </Box>
       <Box display="flex" justifyContent="center" alignItems="center">
         <Button
@@ -146,7 +136,7 @@ const QuestionDetail = ({
   ) : (
     <Container>
       <Typography sx={{ textAlign: 'center' }}>404 - Not Found</Typography>
-      {!authedUser && <Login/>}
+      {!authedUser && <Login />}
     </Container>
   );
 

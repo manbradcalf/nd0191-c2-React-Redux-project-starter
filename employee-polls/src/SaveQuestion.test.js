@@ -9,7 +9,6 @@ describe("SaveQuestion", () => {
     };
 
     await _saveQuestion(question, "tylermcginnis").then((res) => {
-      console.log(res)
       expect(res.id).toBeDefined();
       expect(res.optionOne.votes.length).toBe(0);
       expect(res.optionTwo.votes.length).toBe(0);
