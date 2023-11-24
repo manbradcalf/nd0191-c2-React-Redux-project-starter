@@ -8,7 +8,6 @@ export const authedComponent = (authedUser, component, componentName) => {
         <Typography variant="h4" sx={{ p: 2, m: 2, textAlign:"center" }}>
           Please login to view {componentName}
         </Typography>
-        <Login />
       </Paper>
     );
   } else {
