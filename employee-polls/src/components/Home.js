@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { authedComponent } from "../util/helpers";
-import Questions from "./Questions";
-import { Tabs, Tab } from "@mui/material";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import Questions from './Questions';
+import { Tabs, Tab } from '@mui/material';
+import Login from './Login';
 
 const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
   const [selected, setSelected] = useState(0);
@@ -42,13 +42,13 @@ const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
         <div hidden={selected === 1}>
           <Questions
             questions={unansweredQuestions}
-            isSelected={selected === "unanswered"}
+            isSelected={selected === 'unanswered'}
           />
         </div>
         <div hidden={selected === 0}>
           <Questions
             questions={answeredQuestions}
-            isSelected={selected === "answered"}
+            isSelected={selected === 'answered'}
           />
         </div>
       </div>
@@ -59,7 +59,7 @@ const Home = ({ dispatch, questions, employees, authedUser, loading }) => {
   if (loading) {
     return <h1>Loading!</h1>;
   } else {
-    return authedComponent(authedUser, component, "Home");
+    return authedUser ? component : <Login />;
   }
 };
 
@@ -70,7 +70,7 @@ const mapStateToProps = ({ questions, employees, authedUser }) => {
   return {
     questions: questionsList,
     employees: employeesList,
-    authedUser: authedUser ? authedUser : "",
+    authedUser: authedUser ? authedUser : '',
     loading: questionsList.length === 0 && employeesList.length === 0,
   };
 };

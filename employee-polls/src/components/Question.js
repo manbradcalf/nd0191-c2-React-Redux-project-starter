@@ -8,7 +8,7 @@ import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const QuestionCard = ({ question, employees, authedUser, loading }) => {
-  const votedAlready = employees[authedUser].answers[question.id]
+  const votedAlready = employees[authedUser]?.answers[question.id]
     ? true
     : false;
 
