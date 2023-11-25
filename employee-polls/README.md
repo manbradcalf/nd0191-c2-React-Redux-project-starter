@@ -1,3 +1,32 @@
+# Employee Polls
+
+Employee Polls is a React application which enables employees to ask and answer
+various questions or "polls". The questions and answers are tracked and the
+leader is determined by which user has asked and answered the most questions.
+
+## Dependencies
+
+Employee Polls uses react-redux to manage a single store object which is then used
+by connected components who connect to it's state updates using
+`connect(mapStateToProps)(nameOfComponent)`. Components read the state from
+the store updates via the `mapStateToProps` function and update the state by dispatching events for redux
+to handle via the `dispatch` method. `dispatch` lives on the `store` and is provided by wrapping the `App`
+component inside of a `Provider` wrapper which contains the redux `store` component
+
+This application also uses `BrowserRouter` to handle navigation between
+components.
+
+The login functionality is simple for now, allowing only
+impersonation of existing users, but future improvements will include a full
+authentication flow.
+
+## Tests
+
+Inside the `employee-polls/src/tests/` directory are unit tests which can be
+run by executing `npm test`.
+These tests check that the components match the expected snapshot as well as validates some of the fetching logic which lives in
+the `api.js` file.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
