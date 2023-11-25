@@ -17,7 +17,7 @@ import { setSelectedPage } from '../actions/navbarActions';
 const Leaderboard = ({ questions, employees, authedUser, dispatch }) => {
   useEffect(() => {
     dispatch(setSelectedPage('Leaderboard'));
-  }, []);
+  }, [dispatch]);
 
   const component = (
     <TableContainer component={Paper}>

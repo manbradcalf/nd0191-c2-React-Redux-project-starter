@@ -11,7 +11,6 @@ export function handleInitialData() {
         dispatch(receiveQuestions(questions));
         dispatch(receiveEmployees(employees));
         dispatch(setAuthedUser(id));
-        dispatch(setSelectedPage('Home'));
       })
       .catch((e) => {
         console.log(e);

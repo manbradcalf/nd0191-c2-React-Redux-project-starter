@@ -15,7 +15,7 @@ const AddNewQuestion = ({ store, dispatch, authedUser }) => {
 
   useEffect(() => {
     dispatch(setSelectedPage('Ask'));
-  },[]);
+  },[dispatch]);
 
   const handleOptionOne = (event) => {
     event.preventDefault();

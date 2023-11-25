@@ -1,8 +1,6 @@
-import { Button, Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setSelectedPage } from '../actions/navbarActions';
 import Login from './Login';
 export const AuthedComponent = ({
   authedUser,

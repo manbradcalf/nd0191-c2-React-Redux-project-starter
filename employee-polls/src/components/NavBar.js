@@ -5,7 +5,6 @@ import { setAuthedUser } from '../actions/authedUserActions';
 import { setSelectedPage } from '../actions/navbarActions';
 
 const NavBar = ({ dispatch, authedUser, avatarURL, selectedPage }) => {
-  console.log('selectedPageFromProps: ' + selectedPage);
   const handleAuth = (event) => {
     event.preventDefault();
     if (authedUser) {
@@ -14,9 +13,7 @@ const NavBar = ({ dispatch, authedUser, avatarURL, selectedPage }) => {
   };
 
   const handleSetSelectedPage = (event) => {
-    const pageName = event.target.textContent;
-    console.log(`pagename: ${pageName}`);
-    dispatch(setSelectedPage(pageName));
+    dispatch(setSelectedPage(event.target.textContent));
   };
 
   return (
