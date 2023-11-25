@@ -3,17 +3,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSelectedPage } from '../actions/navbarActions';
+import Login from './Login';
 export const AuthedComponent = ({
   authedUser,
   dispatch,
   component,
   componentName,
 }) => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    dispatch(setSelectedPage('Home'));
-    navigate('/');
-  };
   if (!authedUser) {
     // todo: how to highlight Home in navbar when Link is clicked
     return (
@@ -21,9 +17,7 @@ export const AuthedComponent = ({
         <Typography variant="h4" sx={{ p: 2, m: 2, textAlign: 'center' }}>
           Please login to view {componentName}
         </Typography>
-        <Button onClick={handleClick}>
-          <Typography variant="h4">Log In</Typography>
-        </Button>
+        <Login />
       </Paper>
     );
   } else {
