@@ -5,11 +5,17 @@ import { handleAddNewQuestion } from '../actions/questionsActions';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthedComponent } from './AuthedComponent';
+import { useEffect } from 'react';
+import { setSelectedPage } from '../actions/navbarActions';
 
 const AddNewQuestion = ({ store, dispatch, authedUser }) => {
   const [optionOne, setOptionOne] = useState('Buy an Android');
   const [optionTwo, setOptionTwo] = useState('Buy an iPhone');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(setSelectedPage('Ask'));
+  },[]);
 
   const handleOptionOne = (event) => {
     event.preventDefault();

@@ -11,8 +11,14 @@ import {
   TableContainer,
   Paper,
 } from '@mui/material';
+import { useEffect } from 'react';
+import { setSelectedPage } from '../actions/navbarActions';
 
 const Leaderboard = ({ questions, employees, authedUser, dispatch }) => {
+  useEffect(() => {
+    dispatch(setSelectedPage('Leaderboard'));
+  }, []);
+
   const component = (
     <TableContainer component={Paper}>
       <Table aria-label="Leaderboard" size="small">
