@@ -1,29 +1,27 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setAuthedUser } from '../actions/authedUser';
 import { Paper, Container, Box, Typography, Avatar } from '@mui/material';
+import { setAuthedUser } from '../actions/authedUserActions';
+import { setSelectedPage } from '../actions/navbarActions';
 
-const NavBar = ({ dispatch, authedUser, avatarURL }) => {
-  const [selectedPage, setSelectedPage] = useState(null);
-
+const NavBar = ({ dispatch, authedUser, avatarURL, selectedPage }) => {
+  console.log('selectedPageFromProps: ' + selectedPage);
   const handleAuth = (event) => {
     event.preventDefault();
     if (authedUser) {
       dispatch(setAuthedUser(null));
-    } else {
-      setSelectedPage('Home');
     }
   };
 
   const handleSetSelectedPage = (event) => {
     const pageName = event.target.textContent;
-    setSelectedPage(pageName);
+    console.log(`pagename: ${pageName}`);
+    dispatch(setSelectedPage(pageName));
   };
 
   return (
     <Paper sx={{ m: 2, p: 2, width: 'false' }}>
-      <Link to='/'>
+      <Link to="/">
         <Typography
           onClick={handleSetSelectedPage}
           sx={{
@@ -31,12 +29,12 @@ const NavBar = ({ dispatch, authedUser, avatarURL }) => {
             p: 2,
             color: selectedPage === 'Home' ? 'grey' : '#1976d2',
           }}
-          variant='h6'
+          variant="h6"
         >
           Home
         </Typography>
       </Link>
-      <Link to='/leaderboard'>
+      <Link to="/leaderboard">
         <Typography
           onClick={handleSetSelectedPage}
           sx={{
@@ -44,12 +42,12 @@ const NavBar = ({ dispatch, authedUser, avatarURL }) => {
             p: 2,
             color: selectedPage === 'Leaderboard' ? 'grey' : '#1976d2',
           }}
-          variant='h6'
+          variant="h6"
         >
           Leaderboard
         </Typography>
       </Link>
-      <Link to='/add'>
+      <Link to="/add">
         <Typography
           onClick={handleSetSelectedPage}
           sx={{
@@ -57,7 +55,7 @@ const NavBar = ({ dispatch, authedUser, avatarURL }) => {
             p: 2,
             color: selectedPage === 'Ask' ? 'grey' : '#1976d2',
           }}
-          variant='h6'
+          variant="h6"
         >
           Ask
         </Typography>
@@ -66,7 +64,7 @@ const NavBar = ({ dispatch, authedUser, avatarURL }) => {
       <Container sx={{ float: 'right', width: 'auto', display: 'inline-flex' }}>
         {authedUser ? (
           <Box sx={{ display: 'inline-flex' }}>
-            <Link to='/'>
+            <Link to="/">
               <Typography
                 onClick={handleAuth}
                 sx={{
@@ -74,20 +72,20 @@ const NavBar = ({ dispatch, authedUser, avatarURL }) => {
                   display: 'inline-flex',
                   color: '#1976d2',
                 }}
-                variant='h8'
+                variant="h8"
               >
                 Log Out
               </Typography>
             </Link>
             <Box sx={{ display: 'block' }}>
               <Avatar src={avatarURL} sx={{ margin: 'auto' }} />
-              <Typography variant='caption' sx={{ display: 'block' }}>
+              <Typography variant="caption" sx={{ display: 'block' }}>
                 {authedUser}
               </Typography>
             </Box>
           </Box>
         ) : (
-          <Link to='/'>
+          <Link to="/">
             <Typography
               onClick={handleAuth}
               sx={{
@@ -95,7 +93,7 @@ const NavBar = ({ dispatch, authedUser, avatarURL }) => {
                 p: 2,
                 color: '#1976d2',
               }}
-              variant='h8'
+              variant="h8"
             >
               Log In
             </Typography>
@@ -105,9 +103,10 @@ const NavBar = ({ dispatch, authedUser, avatarURL }) => {
     </Paper>
   );
 };
-const mapStateToProps = ({ authedUser, employees }) => ({
+const mapStateToProps = ({ authedUser, employees, navbar }) => ({
   authedUser: authedUser,
   avatarURL: employees[authedUser]?.avatarURL,
+  selectedPage: navbar?.selectedPage,
 });
 
 export default connect(mapStateToProps)(NavBar);

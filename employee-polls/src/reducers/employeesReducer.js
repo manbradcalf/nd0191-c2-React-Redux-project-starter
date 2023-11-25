@@ -2,7 +2,7 @@ import {
   ADD_ANSWER_TO_USER,
   RECEIVE_EMPLOYEES,
   ADD_NEW_QUESTION_TO_USER,
-} from "../actions/employees";
+} from "../actions/employeesActions";
 
 export default function employeesReducer(state = {}, action) {
   const { authedUser, employees, answer, qid } = action;

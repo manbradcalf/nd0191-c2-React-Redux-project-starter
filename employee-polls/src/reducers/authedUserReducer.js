@@ -1,4 +1,4 @@
-import { SET_AUTHED_USER } from "../actions/authedUser";
+import { SET_AUTHED_USER } from "../actions/authedUserActions";
 
 export default function authedUserReducer(state = "", action) {
   switch (action.type) {

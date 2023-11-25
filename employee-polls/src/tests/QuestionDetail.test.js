@@ -8,6 +8,7 @@ import reducer from '../reducers';
 import { Provider } from 'react-redux';
 import { handleQuestionAnswered } from '../actions/shared';
 import Router from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 const mockState = exampleState;
 const mockStore = configureStore([]);
@@ -25,9 +26,11 @@ describe('QuestionDetailPage', () => {
       .mockReturnValue({ id: 'vthrdm985a262al8qx3do' });
 
     var component = render(
-      <Provider store={store}>
-        <QuestionDetail />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <QuestionDetail />
+        </Provider>
+      </BrowserRouter>
     );
     expect(component).toMatchSnapshot();
   });
@@ -38,9 +41,11 @@ describe('QuestionDetailPage', () => {
       .mockReturnValue({ id: 'vthrdm985a262al8qx3do' });
 
     var component = render(
-      <Provider store={store}>
-        <QuestionDetail />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <QuestionDetail />
+        </Provider>
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -54,9 +59,11 @@ describe('QuestionDetailPage', () => {
     mockState.employees = {};
 
     var component = render(
-      <Provider store={mockStore(mockState)}>
-        <QuestionDetail />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={mockStore(mockState)}>
+          <QuestionDetail />
+        </Provider>
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -69,9 +76,11 @@ describe('QuestionDetailPage', () => {
       .mockReturnValue({ id: 'vthrdm985a262al8qx3do' });
 
     var component = render(
-      <Provider store={store}>
-        <QuestionDetail />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <QuestionDetail />
+        </Provider>
+      </BrowserRouter>
     );
 
     var voteOptionOneBtn = component.getByTestId('voteOptionOne');
@@ -79,13 +88,22 @@ describe('QuestionDetailPage', () => {
     expect(store.dispatch).toHaveBeenCalledTimes(1);
   });
 
-  // it("Dispatches event when optionTwo selected", () => {
-  //   store.dispatch = jest.fn();
-  //   var component = render(<Question store={store} />);
-  //   var voteOptionTwoBtn = component.getByTestId("voteOptionTwo");
+  it('Dispatches event when optionTwo selected', () => {
+    store.dispatch = jest.fn();
+    jest
+      .spyOn(Router, 'useParams')
+      .mockReturnValue({ id: 'vthrdm985a262al8qx3do' });
 
-  //   fireEvent.click(voteOptionTwoBtn);
+    var component = render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <QuestionDetail />
+        </Provider>
+      </BrowserRouter>
+    );
 
-  //   expect(store.dispatch).toHaveBeenCalledTimes(1);
-  // });
+    var voteOptionTwoBtn = component.getByTestId('voteOptionTwo');
+    fireEvent.click(voteOptionTwoBtn);
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+  });
 });

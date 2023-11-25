@@ -2,7 +2,7 @@ import {
   RECEIVE_QUESTIONS,
   ADD_NEW_QUESTION,
   ADD_ANSWER_TO_QUESTION,
-} from "../actions/questions";
+} from '../actions/questionsActions';
 
 export default function questionsReducer(state = {}, action) {
   switch (action.type) {

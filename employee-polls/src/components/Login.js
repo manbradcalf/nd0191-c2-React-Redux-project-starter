@@ -3,7 +3,7 @@ import React from "react";
 import { Select, InputLabel, MenuItem, FormControl } from "@mui/material";
 import { connect } from "react-redux";
 import { useState } from "react";
-import { setAuthedUser } from "../actions/authedUser";
+import { setAuthedUser } from "../actions/authedUserActions";
 import { Typography, Box } from "@mui/material";
 
 const Login = ({ dispatch, employees, authedUser }) => {

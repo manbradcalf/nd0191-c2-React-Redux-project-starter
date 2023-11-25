@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { authedComponent } from "../util/helpers";
+import React from 'react';
+import { connect } from 'react-redux';
+import { AuthedComponent } from './AuthedComponent';
 import {
   Avatar,
   Table,
@@ -10,9 +10,9 @@ import {
   TableBody,
   TableContainer,
   Paper,
-} from "@mui/material";
+} from '@mui/material';
 
-const Leaderboard = ({ questions, employees, authedUser }) => {
+const Leaderboard = ({ questions, employees, authedUser, dispatch }) => {
   const component = (
     <TableContainer component={Paper}>
       <Table aria-label="Leaderboard" size="small">
@@ -45,7 +45,14 @@ const Leaderboard = ({ questions, employees, authedUser }) => {
       </Table>
     </TableContainer>
   );
-  return authedComponent(authedUser, component, "Leaderboard")
+  return (
+    <AuthedComponent
+      authedUser={authedUser}
+      dispatch={dispatch}
+      component={component}
+      componentName={'Leaderboard'}
+    />
+  );
 };
 
 const mapStateToProps = ({ questions, employees, authedUser }) => ({

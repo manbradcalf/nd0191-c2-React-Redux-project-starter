@@ -1,14 +1,14 @@
 import React from 'react';
 import { Button, TextField, Box, Typography } from '@mui/material';
 import { connect } from 'react-redux';
-import { handleAddNewQuestion } from '../actions/questions';
+import { handleAddNewQuestion } from '../actions/questionsActions';
 import { useState } from 'react';
-import { authedComponent } from '../util/helpers';
 import { useNavigate } from 'react-router-dom';
+import { AuthedComponent } from './AuthedComponent';
 
 const AddNewQuestion = ({ store, dispatch, authedUser }) => {
-  const [optionOne, setOptionOne] = useState('');
-  const [optionTwo, setOptionTwo] = useState('');
+  const [optionOne, setOptionOne] = useState('Buy an Android');
+  const [optionTwo, setOptionTwo] = useState('Buy an iPhone');
   const navigate = useNavigate();
 
   const handleOptionOne = (event) => {
@@ -40,7 +40,7 @@ const AddNewQuestion = ({ store, dispatch, authedUser }) => {
           multiline
           rows={2}
           onChange={handleOptionOne}
-          defaultValue="Buy an Android"
+          value={optionOne}
           sx={{ width: 1 / 2 }}
         />
         <Typography sx={{ m: 2 }}> or </Typography>
@@ -49,7 +49,7 @@ const AddNewQuestion = ({ store, dispatch, authedUser }) => {
           label="Option Two"
           multiline
           rows={2}
-          defaultValue="Buy an iPhone"
+          value={optionTwo}
           onChange={handleOptionTwo}
           sx={{ width: 1 / 2 }}
         />
@@ -65,7 +65,14 @@ const AddNewQuestion = ({ store, dispatch, authedUser }) => {
     </Box>
   );
 
-  return authedComponent(authedUser, component, 'Ask a Question');
+  return (
+    <AuthedComponent
+      authedUser={authedUser}
+      dispatch={dispatch}
+      component={component}
+      componentName={'Ask a Question'}
+    />
+  );
 };
 
 const mapStateToProps = ({ authedUser }) => ({ authedUser });
