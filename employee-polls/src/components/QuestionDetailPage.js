@@ -136,18 +136,10 @@ const QuestionDetail = ({ dispatch, questions, employees, authedUser }) => {
   ) : (
     <Container>
       <Typography sx={{ textAlign: 'center' }}>404 - Not Found</Typography>
-      {!authedUser && <Login />}
     </Container>
   );
 
-  return (
-    <AuthedComponent
-      authedUser={authedUser}
-      dispatch={dispatch}
-      component={component}
-      componentName={'Question Detail'}
-    />
-  );
+  return component;
 };
 const mapStateToProps = ({ employees, questions, authedUser }) => ({
   employees,
