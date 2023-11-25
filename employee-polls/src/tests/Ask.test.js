@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { exampleState } from './exampleState';
 import configureStore from 'redux-mock-store';
+import { BrowserRouter } from 'react-router-dom';
 
 const mockStore = configureStore([]);
 const store = mockStore(exampleState);
@@ -10,9 +11,11 @@ const store = mockStore(exampleState);
 describe('AddNewQuestion', () => {
   it('renders successfully', () => {
     var component = render(
-      <Provider store={store}>
-        <AddNewQuestion/>
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <AddNewQuestion />
+        </Provider>
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
