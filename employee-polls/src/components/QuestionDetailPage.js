@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { handleQuestionAnswered } from '../actions/shared';
 import { useParams } from 'react-router-dom';
 import LinearProgress from '@mui/material/LinearProgress';
+import { AuthedComponent } from './AuthedComponent';
 
 const QuestionDetail = ({ dispatch, questions, employees, authedUser }) => {
   const { id } = useParams();
@@ -137,7 +138,14 @@ const QuestionDetail = ({ dispatch, questions, employees, authedUser }) => {
     </Container>
   );
 
-  return component;
+  return (
+    <AuthedComponent
+      authedUser={authedUser}
+      dispatch={dispatch}
+      component={component}
+      componentName={'Question Detail'}
+    />
+  );
 };
 const mapStateToProps = ({ employees, questions, authedUser }) => ({
   employees,
