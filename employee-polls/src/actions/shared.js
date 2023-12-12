@@ -3,6 +3,7 @@ import { receiveEmployees, addAnswerToUser } from './employeesActions';
 import { receiveQuestions, addAnswerToQuestion } from './questionsActions';
 import { setAuthedUser } from './authedUserActions';
 import { setSelectedPage } from './navbarActions';
+import { authenticate } from '../util/api';
 
 export function handleInitialData() {
   return (dispatch) => {
@@ -17,6 +18,16 @@ export function handleInitialData() {
       });
   };
 }
+export function handleLogin(username, password) {
+  return (dispatch) => {
+    return authenticate(username, password)
+      .then(dispatch(setAuthedUser(username)))
+      .catch((e) => {
+        console.log('unable to login', e);
+      });
+  };
+}
+
 export function handleQuestionAnswered(question, answer, authedUser) {
   return (dispatch, getState) => {
     const { authedUser, questions } = getState();

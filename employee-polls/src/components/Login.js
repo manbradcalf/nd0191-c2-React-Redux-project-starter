@@ -1,38 +1,46 @@
 // Once the user logs in, the home page is shown.
-import React from "react";
-import { Select, InputLabel, MenuItem, FormControl } from "@mui/material";
-import { connect } from "react-redux";
-import { useState } from "react";
-import { setAuthedUser } from "../actions/authedUserActions";
-import { Typography, Box } from "@mui/material";
+import React from 'react';
+import {
+  Select,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  TextField,
+} from '@mui/material';
+import { connect } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { setAuthedUser } from '../actions/authedUserActions';
+import { Typography, Box, Button } from '@mui/material';
+import { handleLogin } from '../actions/shared';
 
 const Login = ({ dispatch, employees, authedUser }) => {
-  const [selectedUser] = useState("");
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    dispatch(
-      setAuthedUser(
-        employees.filter((x) => x.name === event.target.value)?.[0].id
-      )
-    );
+  const handleClick = () => {
+    dispatch(handleLogin(username, password));
   };
 
   return (
     <Box sx={{ p: 2, m: 2 }}>
       <Typography variant="h4">Login</Typography>
       <FormControl fullWidth>
-        <InputLabel>User</InputLabel>
-        <Select
-          value={selectedUser}
-          label="Users"
-          onChange={handleChange}
-        >
-          {employees?.map((employee) => {
-            return <MenuItem value={employee.name} key={employee.name}>{employee.name}</MenuItem>;
-          })}
-        </Select>
+        <TextField
+          id="username-textfield"
+          variant="outlined"
+          label="Username"
+          sx={{ marginTop: 1 }}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <TextField
+          id="password-textfield"
+          variant="outlined"
+          label="Password"
+          sx={{ marginTop: 1 }}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </FormControl>
+      <Button onClick={handleClick}>LogIn</Button>
     </Box>
   );
 };
